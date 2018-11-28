@@ -1,30 +1,42 @@
 package fr.adaming.dao;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Commande;
 
-
+@Repository
 public class CommandeDaoImpl implements ICommandeDao{
 
+	@Autowired
+	private SessionFactory sf;
+	
+	//setter pour injection
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
+	
 	@Override
 	public Commande addCommande(Commande commande) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s=sf.getCurrentSession();
+		s.save(commande);
+		return commande;
 	}
 
 	@Override
 	public void delCommande(Commande commande) {
-		// TODO Auto-generated method stub
-		
+		Session s=sf.getCurrentSession();
+		s.delete(commande);
 	}
 
 	@Override
 	public Commande searchCommandeById(Commande commande) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s=sf.getCurrentSession();
+		return (Commande) s.get(Commande.class, commande.getId());
 	}
 
 	

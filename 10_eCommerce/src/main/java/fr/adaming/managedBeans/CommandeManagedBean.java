@@ -3,6 +3,7 @@ package fr.adaming.managedBeans;
 import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -13,14 +14,20 @@ import fr.adaming.service.ICommandeService;
 @ManagedBean(name="coMB")
 public class CommandeManagedBean {
 	
+	//transfo uml java
+	@ManagedProperty(value="#{coservice}")
+	private ICommandeService coservice;
+	//setter pour injection
+	public void setCoservice(ICommandeService coservice) {
+		this.coservice = coservice;
+	}
+	
 	//attributs
 	private Commande commande;
+	
 	private HttpSession maSession;
 	private Client client;
 	
-
-	private ICommandeService coservice;
-
 	public CommandeManagedBean() {
 		super();
 	}
@@ -43,8 +50,6 @@ public class CommandeManagedBean {
 	public void setCommande(Commande commande) {
 		this.commande = commande;
 	}
-	
-	
 	
 	public Client getClient() {
 		return client;
