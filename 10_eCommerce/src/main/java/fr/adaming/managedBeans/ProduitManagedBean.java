@@ -5,11 +5,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -25,7 +25,7 @@ import fr.adaming.service.IProduitService;
 public class ProduitManagedBean implements Serializable {
 
 	// transformation de l'association uml en JAVA
-	@EJB
+
 	private IProduitService proService;
 
 	// declaration des attributs

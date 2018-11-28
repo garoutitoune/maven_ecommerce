@@ -1,7 +1,7 @@
 package fr.adaming.managedBeans;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -22,7 +22,7 @@ public class LigneManagedBean {
 	private HttpSession maSession;
 	
 	//asso uml java
-	@EJB
+	
 	private ILigneService liservice;
 	
 	//construc

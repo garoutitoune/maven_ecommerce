@@ -5,10 +5,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -36,15 +37,15 @@ public class PanierManagedBean implements Serializable{
 	private Client client;
 	
 	//asso uml java
-	@EJB
+
 	private IPanierService paservice;
-	@EJB
+
 	private ILigneService liservice;
-	@EJB
+
 	private ICommandeService coservice;
-	@EJB
+	
 	private IProduitService proservice;
-	@EJB
+
 	private IClientService clservice;
 
 	public PanierManagedBean() {

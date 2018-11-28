@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
-import javax.el.ListELResolver;
+
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;

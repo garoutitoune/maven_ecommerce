@@ -3,7 +3,7 @@ package fr.adaming.managedBeans;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.EJB;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -21,13 +21,13 @@ import fr.adaming.service.IProduitService;
 public class GerantManagedBean implements Serializable {
 
 	// transformation de l'association UML en JAVA
-	@EJB
+
 	private IGerantService gService;
 
-	@EJB
+
 	private ICategorieService caService;
 
-	@EJB
+	
 	private IProduitService proService;
 
 	// declaration des attributs

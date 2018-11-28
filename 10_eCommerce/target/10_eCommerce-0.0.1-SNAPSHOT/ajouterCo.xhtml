@@ -1,0 +1,59 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>ajout commande</title>
+
+</h:head>
+<h:body>
+	<ui:composition template="/templates/layout2.xhtml">
+		<ui:define name="monCorp">
+			
+			
+			<h1>formulaire d'ajout commande</h1>
+<h:form>
+
+Date: <p:calendar value="#{coMB.commande.date}" />
+<br/>
+Client id: <h:inputText value="#{coMB.client.id}"></h:inputText>
+<br/>
+<h:commandButton value="Ajouter commande" action="#{coMB.addCommande}"/> 
+
+<br/>
+supprimer:
+<br/>
+id commande: <h:inputText value="#{coMB.commande.id}" />
+<br/>
+<h:commandButton value="supprimer commande" action="#{coMB.delCommande}"/> 
+<br/>
+ajouter ligne:
+<br/>
+prix: <h:inputText value="#{liMB.ligne.prix}" />
+<br/>
+qt:<h:inputText value="#{liMB.ligne.qt}" />
+<br/>
+commande: <h:inputText value="#{liMB.commande.id}" />
+<br/>
+produit: <h:inputText value="#{liMB.produit.id}" />
+<br/>
+<h:commandButton value="ajouter ligne" action="#{liMB.addLigne}"/> 
+<br/>
+ligne à supprimer: <h:inputText value="#{liMB.ligne.id}" />
+<br/>
+<h:commandButton value="supprimer ligne" action="#{liMB.delLigne}"/> 
+
+</h:form>
+<h1><h:messages style="color:red; text-align:center" /></h1>
+			
+
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>

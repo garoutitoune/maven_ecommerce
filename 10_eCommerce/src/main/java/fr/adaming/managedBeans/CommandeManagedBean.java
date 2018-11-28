@@ -1,7 +1,7 @@
 package fr.adaming.managedBeans;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -18,8 +18,7 @@ public class CommandeManagedBean {
 	private HttpSession maSession;
 	private Client client;
 	
-	//asso uml java
-	@EJB
+
 	private ICommandeService coservice;
 
 	public CommandeManagedBean() {
