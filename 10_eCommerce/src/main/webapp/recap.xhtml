@@ -1,0 +1,59 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Mon commerce</title>
+
+</h:head>
+<h:body>
+
+<ui:composition template="/templates/layout2.xhtml">
+		<ui:define name="monCorp">
+			
+			
+	<h:form id="idPanier" >
+	
+		<p:dataTable var="li" value="#{paMB.panier.listeLignes}" paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
+                 paginator="true" rows="5" paginatorPosition="bottom">
+
+							<f:facet name="header">  
+          						<h:outputText value="Panier"/>
+     						</f:facet> 
+
+							<p:column headerText="Photo">
+								<h:graphicImage value="#{li.produit.image}" />
+							</p:column>
+							
+							<p:column headerText="Désignation" >
+								<h:outputText value="#{li.produit.designation}" />
+							</p:column>
+
+							<p:column headerText="Quantité">
+								<h:outputText value="#{li.qt}" />
+							</p:column>
+							
+							<p:column headerText="Prix">
+								<h:outputText value="#{li.prix}" />
+							</p:column>
+							
+							
+						</p:dataTable>
+		
+		<p:commandButton value="savePanier" action="#{paMB.savePanier}"/>
+		
+		
+		
+	
+	
+	
+		
+	</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

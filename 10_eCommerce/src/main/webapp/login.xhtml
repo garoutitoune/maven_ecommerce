@@ -1,0 +1,47 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ma facelet login</title>
+<link rel="stylesheet" type="text/css"
+		href="resources/css/monStyleAccueil.css" />
+</h:head>
+<h:body styleClass="body">
+
+<div class="presentation">
+	<h:form>
+
+		<h:panelGrid columns="2">
+			Login : 
+			<h:inputText value="#{gMB.gerant.mail}" />
+
+			MDP : 
+			<h:inputText value="#{gMB.gerant.mdp}" />
+			
+			
+
+			<h:commandButton value="Se connecter" action="#{gMB.seConnecter}" />
+		</h:panelGrid>
+	</h:form>
+	</div>
+
+	<h1 style="text-align: center; color: red">
+		<h:messages />
+	</h1>
+	
+	<h:link outcome="logincl" >je suis client</h:link>
+	<br/>
+	<h:link outcome="ajoutercl" >ajout client</h:link>
+	<br/>
+	<h:link outcome="delCl" >suppression client</h:link>
+	<br/>
+	<h:link outcome="recherche" >rechercher</h:link>
+	
+	
+</h:body>
+</html>

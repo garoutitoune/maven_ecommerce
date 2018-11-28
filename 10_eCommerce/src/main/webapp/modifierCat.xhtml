@@ -1,0 +1,43 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	 xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>modif categorie</title>
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/templates/layout2.xhtml">
+		<ui:define name="monCorp">
+			
+			
+			<h1>formulaire de modif </h1>
+<h:form enctype="multipart/form-data">
+
+<h:panelGrid columns="2">
+Id: <h:inputText value="#{caMB.categorie.id}" />
+description: <h:inputText value="#{caMB.categorie.description}" />
+Nom: <h:inputText value="#{caMB.categorie.nom}" />
+photo: <p:fileUpload value="#{caMB.file}" mode="simple" skinSimple="true"/>
+
+
+						
+
+<h:commandButton value="Modifier" action="#{caMB.modifierCategorie}"/> 
+
+</h:panelGrid>
+</h:form>
+<h1><h:messages style="color:red; text-align:center" /></h1>
+			
+
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+</html>
