@@ -136,7 +136,7 @@ public class PanierManagedBean implements Serializable{
 			}
 			//vider le panier
 			maSession.setAttribute("paSession", new Panier());
-			
+			this.panier=new Panier();
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","La commande a été enregistrée."));
 		} catch (Exception e) {
 			System.out.println("error message:"+e.getMessage());

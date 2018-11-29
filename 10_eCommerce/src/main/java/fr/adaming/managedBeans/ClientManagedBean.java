@@ -127,7 +127,11 @@ public class ClientManagedBean implements Serializable{
 		
 	}
 	
-	
+	public String deconnexion() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+
+		return "monCommerce.xhtml";
+	}
 	
 	
 	

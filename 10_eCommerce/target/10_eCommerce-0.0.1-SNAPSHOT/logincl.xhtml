@@ -1,0 +1,67 @@
+<!DOCTYPE html >
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Mon commerce</title>
+<style>
+
+  .form-left {
+     width: 60%;
+     text-align: right;
+     font-weight: bold;
+}
+
+.form-right {
+     width: 40%;
+     text-align: center;
+}
+.centered-i {
+position:relative;
+margin:0 auto;
+padding: 0% 0;
+}
+</style>
+
+</h:head>
+<h:body>
+
+<ui:composition template="/templates/layout2.xhtml">
+		<ui:define name="monCorp">
+			
+			
+			<h1>Formulaire de connexion</h1>
+	<h:form id="loginclform" >
+	
+		<h:panelGrid columns="2"  styleClass="centered-i" columnClasses="form-left , form-right ">
+			Login : 
+			<h:inputText value="#{clMB.cl.email}" />
+
+			Mot de passe : 
+			<h:inputSecret value="#{clMB.cl.mdp}" />
+			
+		</h:panelGrid>
+		<br/>
+		<p:commandButton value="Se connecter" action="#{clMB.seConnecter}" update="loginclform"/> 
+		
+	<h2 style="text-align: center; color: red"><h:messages /></h2>
+	</h:form>
+			
+			
+
+
+
+
+		</ui:define>
+	</ui:composition>
+
+
+	
+
+	
+</h:body>
+</html>

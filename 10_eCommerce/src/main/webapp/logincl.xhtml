@@ -51,7 +51,30 @@ padding: 0% 0;
 	<h2 style="text-align: center; color: red"><h:messages /></h2>
 	</h:form>
 			
+			<h:form id="inscription" >
+	
+		<h:panelGrid columns="2"  styleClass="centered-i" columnClasses="form-left , form-right ">
+			Nom : 
+			<h:inputText value="#{clMB.cl.nom}" />
 			
+			Email : 
+			<h:inputText value="#{clMB.cl.email}" />
+
+			Adresse : 
+			<h:inputText value="#{clMB.cl.adresse}" />
+			
+			Mot de passe : 
+			<h:inputSecret value="#{clMB.cl.mdp}" />
+			
+			Téléphone : 
+			<h:inputText value="#{clMB.cl.tel}" />
+			
+		</h:panelGrid>
+		<br/>
+		<p:commandButton value="S'inscrire" action="#{clMB.addClient}" update="inscription"/> 
+		
+	<h2 style="text-align: center; color: red"><h:messages /></h2>
+	</h:form>
 
 
 

@@ -42,7 +42,7 @@
         
         <p:submenu label="Espace Client" icon="ui-icon-person">
         	<p:menuitem value="Se Connecter/S'inscrire" url="logincl.xhtml" rendered="#{!sessionScope.connexion}"/>
-        	<p:menuitem value="Déconnexion" rendered="#{sessionScope.connexion}" action="#{gMB.seDeconnecter}" />
+        	<p:menuitem value="Déconnexion" rendered="#{sessionScope.connexion}" action="#{clMB.deconnexion}" />
         	<p:separator rendered="#{sessionScope.connexion}"/>
         	<p:menuitem value="Modifier mes informations" url="modifCl.xhtml" rendered="#{sessionScope.connexion}"/>
         	<p:menuitem value="Mes commandes" url="#" rendered="#{sessionScope.connexion}"/>
