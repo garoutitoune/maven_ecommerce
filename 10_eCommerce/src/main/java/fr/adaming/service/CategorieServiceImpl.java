@@ -1,39 +1,57 @@
 package fr.adaming.service;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.ICategorieDao;
 import fr.adaming.model.Categorie;
-import fr.adaming.model.Gerant;
 
 
+@Service("caService")
+@Transactional
 public class CategorieServiceImpl implements ICategorieService{
 
-	@Override
-	public List<Categorie> getAllCategorie() {
-		// TODO Auto-generated method stub
-		return null;
+	@Autowired
+	private ICategorieDao categorieDao;
+	
+	
+	public void setCategorieDao(ICategorieDao categorieDao) {
+		this.categorieDao = categorieDao;
 	}
 
 	@Override
-	public Categorie addCategorie(Categorie ca, Gerant g) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Categorie> getAllCategorie() {
+		
+		return categorieDao.getAllCategorie();
+	}
+
+	@Override
+	public Categorie addCategorie(Categorie ca) {
+		
+		return categorieDao.addCategorie(ca);
 	}
 
 	@Override
 	public int modifierCategorie(Categorie ca) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(ca.getPhoto().length!=0) {
+			
+			return categorieDao.modifierCategoriePhoto(ca);
+		}else {
+		
+			return categorieDao.modifierCategorie(ca);
+			
+		}
+		
 	}
 
 	@Override
 	public int supprimerCategorie(Categorie ca) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return categorieDao.supprimerCategorie(ca);
 	}
 	
 

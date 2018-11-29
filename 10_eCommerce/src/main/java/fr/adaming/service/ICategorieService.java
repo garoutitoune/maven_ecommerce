@@ -12,7 +12,7 @@ public interface ICategorieService {
 	
 	public List<Categorie> getAllCategorie();
 	
-	public Categorie addCategorie(Categorie ca, Gerant g);
+	public Categorie addCategorie(Categorie ca);
 	
 	public int modifierCategorie(Categorie ca);
 	

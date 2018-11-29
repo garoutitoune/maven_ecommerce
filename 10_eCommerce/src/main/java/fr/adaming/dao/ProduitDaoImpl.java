@@ -3,67 +3,154 @@ package fr.adaming.dao;
 import java.util.List;
 
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.apache.commons.codec.binary.Base64;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import fr.adaming.model.Categorie;
+
 import fr.adaming.model.Produit;
 
-
+@Repository
 public class ProduitDaoImpl implements IProduitDao {
+
+	@Autowired
+	private SessionFactory sf;
+
+	public void setSf(SessionFactory sf) {
+		this.sf = sf;
+	}
 
 	@Override
 	public List<Produit> getAllProduit() {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+
+		Criteria cr = s.createCriteria(Produit.class);
+		
+		List<Produit> liste = cr.list();
+
+		for (Produit pr : liste) {
+			System.out.println("je suis dans le recuperateur d'image");
+			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
+		}
+		return liste;
 	}
 
 	@Override
 	public Produit addProduit(Produit pro) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+
+		s.save(pro);
+
+		return pro;
 	}
 
 	@Override
 	public int deleteProduit(Produit pro) {
-		// TODO Auto-generated method stub
-		return 0;
+		Session s = sf.getCurrentSession();
+
+		String req = "DELETE FROM Produit p WHERE p.id=:pIdPr";
+
+		Query query = s.createQuery(req);
+
+		query.setParameter("pIdPr", pro.getId());
+
+		return query.executeUpdate();
 	}
 
 	@Override
 	public int modifierProduit(Produit pro) {
-		// TODO Auto-generated method stub
-		return 0;
+		Session s = sf.getCurrentSession();
+
+		String req = "UPDATE Produit p SET p.description=:pDescrip, p.designation=:pDesign, p.photo=:pPhoto, p.prix=:pPrix, p.quantite=:pQtite WHERE p.id=:pIdPr AND p.categorie.id=:pIdCa";
+
+		Query query = s.createQuery(req);
+
+		// passage avec params
+		query.setParameter("pDescrip", pro.getDescription());
+		query.setParameter("pDesign", pro.getDesignation());
+		query.setParameter("pPhoto", pro.getPhoto());
+		query.setParameter("pPrix", pro.getPrix());
+		query.setParameter("pQtite", pro.getQuantite());
+		query.setParameter("pIdPr", pro.getId());
+		query.setParameter("pIdCa", pro.getCategorie().getId());
+
+		return query.executeUpdate();
 	}
 
 	@Override
 	public List<Produit> getAllProduitCat(Produit pro) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+
+		Criteria cr = s.createCriteria(Produit.class);
+
+		cr.add(Restrictions.eq("categorie.id", pro.getCategorie().getId()));
+
+		List<Produit> liste = cr.list();
+
+		for (Produit pr : liste) {
+			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
+		}
+		return liste;
 	}
 
 	@Override
 	public Produit getProduitById(Produit pro) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+
+		Criteria cr = s.createCriteria(Produit.class);
+
+		cr.add(Restrictions.eq("id", pro.getId()));
+
+		Produit proOut = (Produit) cr.uniqueResult();
+		proOut.setImage("data:image/png);base64," + Base64.encodeBase64String(proOut.getPhoto()));
+
+		return proOut;
 	}
 
 	@Override
 	public List<Produit> getProduitByDescr(Produit pro) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+
+		// ecrire la requete en SQL
+		String req = "SELECT * FROM produits WHERE ca_id=:pIdCa AND designation LIKE :pDesign";
+
+		SQLQuery query = s.createSQLQuery(req);
+
+		query.setParameter("pIdCa", pro.getCategorie().getId());
+		query.setParameter("pDesign", "%" + pro.getDesignation() + "%");
+
+		List<Produit> liste = query.list();
+
+//		for (Produit pr : liste) {
+//			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
+//		}
+		return liste;
 	}
 
 	@Override
 	public int modifierProduitSansPhoto(Produit pro) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		Session s = sf.getCurrentSession();
 
-	
-	
+		String req = "UPDATE Produit p SET p.description=:pDescrip, p.designation=:pDesign, p.prix=:pPrix, p.quantite=:pQtite WHERE p.id=:pIdPr AND p.categorie.id=:pIdCa";
+
+		Query query = s.createQuery(req);
+
+		// passage avec params
+		query.setParameter("pDescrip", pro.getDescription());
+		query.setParameter("pDesign", pro.getDesignation());
+		query.setParameter("pPrix", pro.getPrix());
+		query.setParameter("pQtite", pro.getQuantite());
+		query.setParameter("pIdPr", pro.getId());
+		query.setParameter("pIdCa", pro.getCategorie().getId());
+
+		return query.executeUpdate();
+	}
 
 }

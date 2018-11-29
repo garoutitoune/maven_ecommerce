@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -26,7 +27,15 @@ public class ProduitManagedBean implements Serializable {
 
 	// transformation de l'association uml en JAVA
 
-	private IProduitService proService;
+	@ManagedProperty(value="#{proService}")
+	private IProduitService produitService;
+	
+	
+
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
+	}
+
 
 	// declaration des attributs
 	private Produit produit;
@@ -113,7 +122,7 @@ public class ProduitManagedBean implements Serializable {
 //		FacesContext.getCurrentInstance().getExternalContext().redirect("voirProds1Categ.xhtml");
 		//recup la liste des produits pour 1 catég
 		this.categorie.setId(i);
-		this.listeProds=proService.getAllProduitByCat(new Produit(), this.categorie);
+		this.listeProds=produitService.getAllProduitByCat(new Produit(), this.categorie);
 		maSession.setAttribute("listeProds1Categ", this.listeProds);
 //		return "voirProds1Categ.xhtml";
 		FacesContext.getCurrentInstance().getExternalContext().redirect("voirProds1Categ.xhtml");
@@ -121,7 +130,7 @@ public class ProduitManagedBean implements Serializable {
 	
 	public String produitByCat() {
 		//recuperer la liste de produit selon la categorie
-		List<Produit> listePro=proService.getAllProduitByCat(produit, categorie);
+		List<Produit> listePro=produitService.getAllProduitByCat(produit, categorie);
 		
 		indice=true;
 		
@@ -133,11 +142,11 @@ public class ProduitManagedBean implements Serializable {
 	
 	public String ajouterProduit() {
 		this.produit.setPhoto(file.getContents());
-		Produit proOut = proService.addProduit(produit, categorie);
+		Produit proOut = produitService.addProduit(produit, categorie);
 
 		if (proOut.getId() != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Produit> liste = proService.getAllProduit();
+			List<Produit> liste = produitService.getAllProduit();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeProSession", liste);
@@ -152,11 +161,11 @@ public class ProduitManagedBean implements Serializable {
 	
 	
 	public String supprimerProduit() {
-		int verif=proService.deleteProduit(produit);
+		int verif=produitService.deleteProduit(produit);
 		
 		if(verif!=0){
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Produit> liste = proService.getAllProduit();
+			List<Produit> liste = produitService.getAllProduit();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeProSession", liste);
@@ -172,10 +181,10 @@ public class ProduitManagedBean implements Serializable {
 	
 	public String modifierProduit() {
 		this.produit.setPhoto(file.getContents());
-		int verif=proService.modifierProduit(produit, categorie);
+		int verif=produitService.modifierProduit(produit, categorie);
 		if(verif!=0){
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Produit> liste = proService.getAllProduit();
+			List<Produit> liste = produitService.getAllProduit();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeProSession", liste);
@@ -193,7 +202,7 @@ public class ProduitManagedBean implements Serializable {
 	}
 	
 	public String rechercherByDesignation() {
-		List<Produit> listeOut=proService.getProduitByDes(produit, categorie);
+		List<Produit> listeOut=produitService.getProduitByDes(produit, categorie);
 		if(listeOut!=null) {
 			maSession.setAttribute("listeProRechSession", listeOut);
 			
@@ -207,7 +216,7 @@ public class ProduitManagedBean implements Serializable {
 	
 	
 	public String rechercher() {
-		Produit pro=proService.getProduitById(produit);
+		Produit pro=produitService.getProduitById(produit);
 		maSession.setAttribute("proSession1", pro);
 		
 		return "recherche";

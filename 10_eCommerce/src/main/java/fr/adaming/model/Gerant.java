@@ -25,11 +25,6 @@ public class Gerant {
 	private String prenom;
 	private String mail;
 	private String mdp;
-	
-	//transformation de l'association UML en java
-	@ManyToMany
-	@JoinTable(name="ger_cat", joinColumns=@JoinColumn(name="g_id"),inverseJoinColumns=@JoinColumn(name="ca_id"))
-	private List<Categorie> categorie;
 
 	// constructeur vide
 	public Gerant() {
@@ -95,15 +90,5 @@ public class Gerant {
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-
-	public List<Categorie> getCategorie() {
-		return categorie;
-	}
-
-	public void setCategorie(List<Categorie> categorie) {
-		this.categorie = categorie;
-	}
-	
-	
 
 }

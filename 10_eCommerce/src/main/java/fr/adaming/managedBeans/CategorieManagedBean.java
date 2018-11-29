@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -25,13 +26,22 @@ public class CategorieManagedBean implements Serializable {
 
 	// transformation de l'association uml en java
 
-	private ICategorieService caService;
+	@ManagedProperty(value="#{caService}")
+	private ICategorieService categorieService;
+	
+	@ManagedProperty(value="#{proService}")
+	private IProduitService produitService;
 	
 
-	private IProduitService proService;
+	public void setCategorieService(ICategorieService categorieService) {
+		this.categorieService = categorieService;
+	}
+
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
+	}
 
 	// declaration des attributs
-
 	private Categorie categorie;
 	private Gerant gerant;
 	private UploadedFile file;
@@ -75,10 +85,10 @@ public class CategorieManagedBean implements Serializable {
 		this.categorie.setPhoto(file.getContents());
 
 		// j'ajoute la categorie et le gerant avec
-		Categorie caOut = caService.addCategorie(categorie, gerant);
+		Categorie caOut = categorieService.addCategorie(categorie);
 		if (caOut.getId() != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Categorie> liste = caService.getAllCategorie();
+			List<Categorie> liste = categorieService.getAllCategorie();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeCaSession", liste);
@@ -96,11 +106,13 @@ public class CategorieManagedBean implements Serializable {
 	}
 
 	public String modifierCategorie() {
+		//injection de la photo
 		this.categorie.setPhoto(file.getContents());
-		int verif = caService.modifierCategorie(categorie);
+		
+		int verif = categorieService.modifierCategorie(categorie);
 		if (verif != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Categorie> liste = caService.getAllCategorie();
+			List<Categorie> liste = categorieService.getAllCategorie();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeCaSession", liste);
@@ -114,16 +126,16 @@ public class CategorieManagedBean implements Serializable {
 	}
 
 	public String supprimerCategorie() {
-		int verif = caService.supprimerCategorie(categorie);
+		int verif = categorieService.supprimerCategorie(categorie);
 		if (verif != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Categorie> liste = caService.getAllCategorie();
+			List<Categorie> liste = categorieService.getAllCategorie();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeCaSession", liste);
 
 			// si tout c'est bien passé recupère la liste et je l'injecte
-			List<Produit> liste2 = proService.getAllProduit();
+			List<Produit> liste2 = produitService.getAllProduit();
 
 			// mettre a jour la liste dans la session
 			maSession.setAttribute("listeProSession", liste2);

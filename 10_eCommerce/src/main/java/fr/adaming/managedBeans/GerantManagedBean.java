@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
@@ -22,13 +23,29 @@ public class GerantManagedBean implements Serializable {
 
 	// transformation de l'association UML en JAVA
 
-	private IGerantService gService;
+	@ManagedProperty(value="#{gService}")
+	private IGerantService gerantService;
 
 
-	private ICategorieService caService;
+	@ManagedProperty(value="#{caService}")
+	private ICategorieService categorieService;
 
+	@ManagedProperty(value="#{proService}")
+	private IProduitService produitService;
 	
-	private IProduitService proService;
+	
+
+	public void setGerantService(IGerantService gerantService) {
+		this.gerantService = gerantService;
+	}
+
+	public void setCategorieService(ICategorieService categorieService) {
+		this.categorieService = categorieService;
+	}
+
+	public void setProduitService(IProduitService produitService) {
+		this.produitService = produitService;
+	}
 
 	// declaration des attributs
 	private Gerant gerant;
@@ -98,13 +115,13 @@ public class GerantManagedBean implements Serializable {
 
 		try {
 			// aller chercher le formateur dans la bd
-			Gerant gOut = gService.isExist(gerant);
+			Gerant gOut = gerantService.isExist(gerant);
 
 			// recuperer les categories
-			this.listeCategorie = caService.getAllCategorie();
+			this.listeCategorie = categorieService.getAllCategorie();
 
 			// recuperer les produits
-			this.listeProduit = proService.getAllProduit();
+			this.listeProduit = produitService.getAllProduit();
 
 			// ajouter le formateur dans la session
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("gSession", gOut);
@@ -130,10 +147,10 @@ public class GerantManagedBean implements Serializable {
 
 	public String accessSite() {
 		// recuperer les categories
-		this.listeCategorie = caService.getAllCategorie();
+		this.listeCategorie = categorieService.getAllCategorie();
 
 		// recuperer les produits
-		this.listeProduit = proService.getAllProduit();
+		this.listeProduit = produitService.getAllProduit();
 
 		// ajouter la liste de categorie et de produit à la session
 		
@@ -144,23 +161,6 @@ public class GerantManagedBean implements Serializable {
 		return "accueilSite";
 	}
 	
-	public String contactGerant() {
-		String toMail="proxibanque17@gmail.com";
-		
-		String text="la personne "+this.mail +" a essayée de vous joindre pour ce message : " +this.test1;
-		
-		gService.mailAjoutCl(toMail, this.sujet, text);
-		
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("le mail a bien été envoyé"));
-		
-		return "contactGerant";
-		
-		
-	}
 	
-	public String pdf() {
-		gService.PDF();
-		return "accueil";
-	}
 
 }

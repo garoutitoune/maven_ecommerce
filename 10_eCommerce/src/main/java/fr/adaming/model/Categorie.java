@@ -35,8 +35,7 @@ public class Categorie {
 	@OneToMany(mappedBy="categorie", cascade=CascadeType.ALL)
 	private List<Produit> produit;
 	
-	@ManyToMany(mappedBy="categorie")
-	private List<Gerant> gerant;
+	
 
 	// constructeur vide
 	public Categorie() {
@@ -101,14 +100,7 @@ public class Categorie {
 		this.produit = produit;
 	}
 
-	public List<Gerant> getGerant() {
-		return gerant;
-	}
-
-	public void setGerant(List<Gerant> gerant) {
-		this.gerant = gerant;
-	}
-
+	
 	public String getImage() {
 		return image;
 	}

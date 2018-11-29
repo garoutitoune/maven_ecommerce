@@ -16,13 +16,13 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="produits")
+@Table(name = "produits")
 public class Produit {
-	
-	//declaration des attributs
+
+	// declaration des attributs
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_p")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_p")
 	private int id;
 	private String designation;
 	private String description;
@@ -33,23 +33,20 @@ public class Produit {
 	private byte[] photo;
 	@Transient
 	private String image;
-	
-	//transformation de l'association
+
+	// transformation de l'association
 	@ManyToOne
-	@JoinColumn(name="ca_id", referencedColumnName="id_ca")
+	@JoinColumn(name = "ca_id", referencedColumnName = "id_ca")
 	private Categorie categorie;
-	@OneToMany(mappedBy="produit", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
 	private List<LigneCommande> listeLignes;
-	
-	
+
 	// constructeur avec id
 	public Produit() {
 		super();
 	}
-	
-	
 
-	//constructeur sans id
+	// constructeur sans id
 	public Produit(String designation, String description, double prix, int quantite, boolean selectionne, byte[] photo,
 			Categorie categorie) {
 		super();
@@ -61,10 +58,6 @@ public class Produit {
 		this.photo = photo;
 		this.categorie = categorie;
 	}
-	
-	
-
-
 
 	// constructeur avec id
 	public Produit(int id, String designation, String description, double prix, int quantite, boolean selectionne,
@@ -79,70 +72,71 @@ public class Produit {
 		this.photo = photo;
 		this.categorie = categorie;
 	}
-	
-	
-	//getters et setters
+
+	// getters et setters
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getDesignation() {
 		return designation;
 	}
+
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public double getPrix() {
 		return prix;
 	}
+
 	public void setPrix(double prix) {
 		this.prix = prix;
 	}
+
 	public int getQuantite() {
 		return quantite;
 	}
+
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
+
 	public boolean isSelectionne() {
 		return selectionne;
 	}
+
 	public void setSelectionne(boolean selectionne) {
 		this.selectionne = selectionne;
 	}
-	
 
 	public List<LigneCommande> getListeLignes() {
 		return listeLignes;
 	}
 
-
-
 	public void setListeLignes(List<LigneCommande> listeLignes) {
 		this.listeLignes = listeLignes;
 	}
-
-
 
 	public byte[] getPhoto() {
 		return photo;
 	}
 
-
-
 	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
-
-
 
 	public Categorie getCategorie() {
 		return categorie;
@@ -152,21 +146,12 @@ public class Produit {
 		this.categorie = categorie;
 	}
 
-
-
 	public String getImage() {
 		return image;
 	}
 
-
-
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
-	
-	
-	
 
 }
