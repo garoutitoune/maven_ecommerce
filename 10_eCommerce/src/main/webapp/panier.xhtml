@@ -17,9 +17,9 @@
 			
 			
 	<h:form id="idPanier" >
-	
+	<p:growl  showDetail="true" /> 
 		<p:dataTable var="li" value="#{paMB.panier.listeLignes}" paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
-                 paginator="true" rows="5" paginatorPosition="bottom">
+                 paginator="true" rows="5" paginatorPosition="bottom" id="idpaniertable">
 
 							<f:facet name="header">  
           						<h:outputText value="Panier"/>
@@ -41,13 +41,43 @@
 								<h:outputText value="#{li.prix}" />
 							</p:column>
 							
+							<p:column headerText="Opérations">
+								<p:commandButton icon="ui-icon-circle-plus" action="#{paMB.addProd}" update="idPanier">
+								<f:setPropertyActionListener value="#{li.produit}" target="#{paMB.produit}"></f:setPropertyActionListener>
+								</p:commandButton>
+								<p:commandButton icon="ui-icon-circle-minus" action="#{paMB.delProd}" update="idPanier">
+								<f:setPropertyActionListener value="#{li.produit}" target="#{paMB.produit}"></f:setPropertyActionListener>
+								</p:commandButton>
+								<p:commandButton icon="ui-icon-trash" action="#{paMB.delProd2}" update="idPanier">
+								<f:setPropertyActionListener value="#{li.produit}" target="#{paMB.produit}"></f:setPropertyActionListener>
+								</p:commandButton>
+								
+								
+							</p:column>
 							
 						</p:dataTable>
-						
-		<p:commandButton value="savePanier" action="#{paMB.savePanier}"/>
-
+		<br/>
+		<p:commandButton icon="ui-icon-check" action="#{paMB.savePanier}" value="Passer la commande" update="idPanier"  rendered="#{sessionScope.connexion}">
+								</p:commandButton>
+		<p:commandLink  value="Se Connecter/S'inscrire" action="logincl"  rendered="#{!sessionScope.connexion}">
+								</p:commandLink>
+		
+	
+	
+		
 	</h:form>
+			
+			
+
+
+
+
 		</ui:define>
 	</ui:composition>
+
+
+	
+
+	
 </h:body>
 </html>

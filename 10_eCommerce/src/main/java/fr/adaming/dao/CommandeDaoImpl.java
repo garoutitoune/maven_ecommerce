@@ -2,6 +2,7 @@ package fr.adaming.dao;
 
 
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,14 @@ public class CommandeDaoImpl implements ICommandeDao{
 
 	@Override
 	public void delCommande(Commande commande) {
+		//supprimer les lignes de commande de la commande
 		Session s=sf.getCurrentSession();
+		//requete HQL
+		String req="DELETE FROM LigneCommande AS li WHERE li.commande.id=:pid";
+		Query q=s.createQuery(req);
+		q.setParameter("pid", commande.getId());
+		q.executeUpdate();
+		//supprimer la commande
 		s.delete(commande);
 	}
 

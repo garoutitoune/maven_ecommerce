@@ -47,11 +47,18 @@ ligne à supprimer: <h:inputText value="#{liMB.ligne.id}" />
 <br/>
 <h:commandButton value="supprimer ligne" action="#{liMB.delLigne}"/> 
 
+
+
+<br/>
+lignes de la commande: <h:inputText value="#{liMB.commande.id}" />
+<br/>
+<h:commandButton value="chercher lignes" action="#{liMB.listeLignes}"/> 
+
+
+
 </h:form>
 <h1><h:messages style="color:red; text-align:center" /></h1>
 			
-
-
 		</ui:define>
 	</ui:composition>
 

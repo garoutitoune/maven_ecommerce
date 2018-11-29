@@ -1,8 +1,11 @@
 package fr.adaming.managedBeans;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -15,15 +18,21 @@ import fr.adaming.service.ILigneService;
 @ManagedBean(name="liMB")
 public class LigneManagedBean {
 
+	//asso uml java
+	@ManagedProperty(value="#{liservice}")
+	private ILigneService liservice;
+	//setter pour injection
+	public void setLiservice(ILigneService liservice) {
+		this.liservice = liservice;
+	}
+	
+	
 	//attributs
 	private LigneCommande ligne;
 	private Commande commande;
 	private Produit produit;
 	private HttpSession maSession;
 	
-	//asso uml java
-	
-	private ILigneService liservice;
 	
 	//construc
 	public LigneManagedBean() {
@@ -74,7 +83,12 @@ public class LigneManagedBean {
 		liservice.delLigne(ligne);
 	}
 	
-	
+	public void listeLignes() {
+		List<LigneCommande> liste=liservice.listeLignes(commande);
+		for (LigneCommande ligneCommande : liste) {
+			System.out.println(ligneCommande);
+		}
+	}
 	
 	
 }

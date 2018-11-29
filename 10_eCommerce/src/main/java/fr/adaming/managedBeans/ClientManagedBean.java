@@ -6,9 +6,11 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
 
 import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
@@ -18,8 +20,13 @@ import fr.adaming.service.IClientService;
 public class ClientManagedBean implements Serializable{
 
 	//asso uml java
-
+	@ManagedProperty(value="#{clservice}")
 	private IClientService clService;
+	//setter pour injection
+	public void setClService(IClientService clService) {
+		this.clService = clService;
+	}
+	
 	
 	//attributs
 	private HttpSession maSession;
@@ -67,7 +74,9 @@ public class ClientManagedBean implements Serializable{
 		
 		try {
 			this.cl=clService.isExist(this.cl);
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("clSession", this.cl);
+			maSession.setAttribute("clSession", this.cl);
+			this.connecte=true;
+			maSession.setAttribute("connexion", this.connecte);
 			return "monCommerce.xhtml";
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("le login ou mdp n'est pas valide"));

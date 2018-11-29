@@ -9,6 +9,7 @@ import javax.annotation.PostConstruct;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -37,20 +38,34 @@ public class PanierManagedBean implements Serializable{
 	private Client client;
 	
 	//asso uml java
-
+	@ManagedProperty(value="#{paservice}")
 	private IPanierService paservice;
-
+	@ManagedProperty(value="#{liservice}")
 	private ILigneService liservice;
-
+	@ManagedProperty(value="#{coservice}")
 	private ICommandeService coservice;
 	
-	private IProduitService proservice;
-
+	@ManagedProperty(value="#{clservice}")
 	private IClientService clservice;
-
+	
+	//setters pour injection
+	public void setPaservice(IPanierService paservice) {
+		this.paservice = paservice;
+	}
+	public void setLiservice(ILigneService liservice) {
+		this.liservice = liservice;
+	}
+	public void setCoservice(ICommandeService coservice) {
+		this.coservice = coservice;
+	}
+	public void setClservice(IClientService clservice) {
+		this.clservice = clservice;
+	}
+	//construc
 	public PanierManagedBean() {
 		super();
 	}
+	
 	//init
 	@PostConstruct
 	public void init() {
@@ -87,6 +102,8 @@ public class PanierManagedBean implements Serializable{
 	public void setProduit(Produit produit) {
 		this.produit = produit;
 	}
+	
+	//methodes
 	public void addProd() throws IOException {
 		this.panier=paservice.addProd(this.panier ,this.produit);
 		//actualiser le panier de la session
@@ -110,18 +127,16 @@ public class PanierManagedBean implements Serializable{
 	public void savePanier()
 	{
 		try {
-			System.out.println("je save le panieer!");
-			
-			System.out.println("id produit:"+panier.getListeLignes().get(0).getProduit().getId());
-			Client client=new Client();
-			clservice.addClient(client);
+			//ajouter la nouvelle commande avec le client de la session
 			Commande commande=new Commande(new Date());
-			coservice.addCommande(commande, client);
-			System.out.println("apres enregistrement commande");
-			
+			coservice.addCommande(commande, (Client) maSession.getAttribute("clSession"));
+			//ajouter les lignes de commande correspondant à cette commande
 			for (LigneCommande li : this.panier.getListeLignes()) {
 				liservice.addLigne(li, commande, li.getProduit());
 			}
+			//vider le panier
+			maSession.setAttribute("paSession", new Panier());
+			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","La commande a été enregistrée."));
 		} catch (Exception e) {
 			System.out.println("error message:"+e.getMessage());

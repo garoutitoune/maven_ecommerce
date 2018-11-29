@@ -1,5 +1,6 @@
 package fr.adaming.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +16,16 @@ public class CommandeServiceImpl implements ICommandeService{
 	//asso uml java
 	@Autowired
 	ICommandeDao codao;
+	
+	
 	//setter pour injection 
 	public void setCodao(ICommandeDao codao) {
 		this.codao = codao;
 	}
+	
+
+
+
 
 	@Override
 	public Commande addCommande(Commande commande, Client client) {
@@ -28,6 +35,7 @@ public class CommandeServiceImpl implements ICommandeService{
 
 	@Override
 	public void delCommande(Commande commande) {
+		
 		codao.delCommande(commande);
 	}
 
