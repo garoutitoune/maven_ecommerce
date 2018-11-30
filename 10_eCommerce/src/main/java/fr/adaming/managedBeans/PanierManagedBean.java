@@ -15,8 +15,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
+
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.CommandeTreenode;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
@@ -139,8 +143,27 @@ public class PanierManagedBean implements Serializable{
 			//vider le panier
 			maSession.setAttribute("paSession", new Panier());
 			this.panier=new Panier();
+			
+			
 			//actualiser la liste de commandes
-			maSession.setAttribute("listeCommandes", coservice.searchCommandeByClId((Client) maSession.getAttribute("clSession")));
+			List<Commande> liste =coservice.searchCommandeByClId((Client)maSession.getAttribute("clSession"));
+			//creer le treenode correspondant
+			TreeNode root = new DefaultTreeNode("on s'en fout", null);
+			
+			for (Commande commandetree : liste) {
+				String s1="Commande N."+commande.getId()+"/ Prix: "+coservice.prixCommande(commande);
+				Object s2= commandetree.getDate();
+				TreeNode co=new DefaultTreeNode(new CommandeTreenode(s1,s2) ,root);
+				
+				for (LigneCommande li: commandetree.getListeLignes()) {
+					Produit p=li.getProduit();
+					s1="Produit: "+p.getId();
+					s2="Désignation: "+p.getDesignation()//+" Description: "+p.getDescription()
+					+"/ Quantité: "+li.getQt()+"/ Prix: "+li.getProduit().getPrix();
+					TreeNode pr=new DefaultTreeNode(new CommandeTreenode(s1, s2),co);
+				}
+			}
+			maSession.setAttribute("listeCommandesTree", root);
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","La commande a été enregistrée."));
 		} catch (Exception e) {

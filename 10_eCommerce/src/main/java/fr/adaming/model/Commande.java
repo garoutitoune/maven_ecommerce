@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +26,7 @@ public class Commande {
 	private Date date;
 	
 	//asso uml java
-	@OneToMany(mappedBy="commande", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="commande", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<LigneCommande> listeLignes;
 	@ManyToOne
 	@JoinColumn(name="cl_id", referencedColumnName="id_cl")

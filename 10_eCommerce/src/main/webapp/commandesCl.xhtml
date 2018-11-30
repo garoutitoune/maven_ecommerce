@@ -10,6 +10,17 @@
 
 <head>
 <title>Liste des commandes</title>
+
+<STYLE type="text/css">
+
+table.treetable span.indent{
+  display:inline-block;
+  text-align: right;
+  }
+
+</STYLE>
+
+
 </head>
 
 
@@ -20,17 +31,21 @@
 
 <br/>
 <h:form>
-		<p:dataTable var="co" value="#{sessionScope.listeCommandes}" id="idProds" paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
-                 paginator="true" rows="5" paginatorPosition="bottom">
 		
-			<p:column headerText="Identifiant" >
-				<h:outputText value="#{co.id}" />
-			</p:column>
-			<p:column headerText="Date" >
-				<h:outputText value="#{co.date}" />
-			</p:column>
 
-	</p:dataTable>
+	<br/>
+	<p:treeTable value="#{sessionScope.listeCommandesTree}" var="tr" style="margin-top:0 " scrollable="true" scrollHeight="500" >
+        <f:facet name="header">
+            Liste des commandes
+        </f:facet>
+        <p:column headerText="Numéro">
+            <h:outputText value="#{tr.nom}" />
+        </p:column>
+        <p:column headerText="Description" >
+            <h:outputText value="#{tr.description}" styleClass="paragraphe" />
+        </p:column>
+    </p:treeTable>
+
 
 
 </h:form>

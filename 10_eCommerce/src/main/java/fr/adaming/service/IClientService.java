@@ -12,6 +12,7 @@ public interface IClientService {
 	public Client modifClient(Client cl);
 	public void delClient(Client cl);
 	public Client searchById(Client cl);
+	public int modifMdp(Client cl);
 	
 	
 }

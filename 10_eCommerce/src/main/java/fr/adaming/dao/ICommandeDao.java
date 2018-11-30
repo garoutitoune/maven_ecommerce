@@ -15,7 +15,7 @@ public interface ICommandeDao {
 	public void delCommande(Commande commande);
 	public Commande searchCommandeById(Commande commande);
 	public List<Commande> searchCommandeByClId(Client client);
-	
+	public double prixCommande(Commande commande);
 	
 	
 }

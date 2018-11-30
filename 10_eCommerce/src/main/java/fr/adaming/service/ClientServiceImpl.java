@@ -50,5 +50,11 @@ public class ClientServiceImpl implements IClientService{
 		return cldao.searchById(cl);
 	}
 
+
+	@Override
+	public int modifMdp(Client cl) {
+		return cldao.modifMdp(cl);
+	}
+
 	
 }

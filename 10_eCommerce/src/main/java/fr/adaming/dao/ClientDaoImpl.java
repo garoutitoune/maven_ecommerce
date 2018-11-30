@@ -70,6 +70,17 @@ public class ClientDaoImpl implements IClientDao{
 		return (Client) s.get(Client.class, cl.getId());
 	}
 
+	@Override
+	public int modifMdp(Client cl) {
+		Session s=sf.getCurrentSession();
+		//req hql
+		String req="UPDATE Client cl SET cl.mdp=:pmdp WHERE cl.id=:pid";
+		Query q=s.createQuery(req);
+		q.setParameter("pmdp", cl.getMdp());
+		q.setParameter("pid",cl.getId());
+		return q.executeUpdate();
+	}
+
 	
 	
 	

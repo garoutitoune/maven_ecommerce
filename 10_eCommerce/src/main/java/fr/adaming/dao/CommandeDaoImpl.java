@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.LigneCommande;
 
 @Repository
 public class CommandeDaoImpl implements ICommandeDao{
@@ -58,6 +59,15 @@ public class CommandeDaoImpl implements ICommandeDao{
 		Query q=s.createQuery(req);
 		q.setParameter("pid", client.getId());
 		return q.list();
+	}
+
+	@Override
+	public double prixCommande(Commande commande) {
+		double prix=0;
+		for (LigneCommande li : commande.getListeLignes()) {
+			prix+=li.getPrix();
+		}
+		return prix;
 	}
 
 	

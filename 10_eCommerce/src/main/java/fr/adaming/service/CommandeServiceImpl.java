@@ -55,5 +55,14 @@ public class CommandeServiceImpl implements ICommandeService{
 		return codao.searchCommandeByClId(client);
 	}
 
+
+
+
+
+	@Override
+	public double prixCommande(Commande commande) {
+		return codao.prixCommande(commande);
+	}
+
 	
 }

@@ -19,6 +19,9 @@ import org.primefaces.model.TreeNode;
 
 import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
+import fr.adaming.model.CommandeTreenode;
+import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Produit;
 import fr.adaming.service.IClientService;
 import fr.adaming.service.ICommandeService;
 
@@ -93,19 +96,27 @@ public class ClientManagedBean implements Serializable{
 			
 			//charger la liste des commandes
 			//recup le client de la session
-			System.out.println(this.cl);
 			List<Commande> liste =coService.searchCommandeByClId(this.cl);
-			maSession.setAttribute("listeCommandes", liste);
-			System.out.println(liste.size());
+//			maSession.setAttribute("listeCommandes", liste);
+			
 			//creer le treenode correspondant
-			TreeNode root = new DefaultTreeNode(new Document("Files", "-", "Folder"), null);
+			TreeNode root = new DefaultTreeNode("on s'en fout", null);
 			
+			for (Commande commande : liste) {
+				String s1="Commande N."+commande.getId()+"/ Prix: "+coService.prixCommande(commande);
+				Object s2= commande.getDate();
+				TreeNode co=new DefaultTreeNode(new CommandeTreenode(s1,s2) ,root);
+				
+				for (LigneCommande li: commande.getListeLignes()) {
+					Produit p=li.getProduit();
+					s1="Produit: "+p.getId();
+					s2="Désignation: "+p.getDesignation()//+" Description: "+p.getDescription()
+					+"/ Quantité: "+li.getQt()+"/ Prix: "+li.getProduit().getPrix();
+					TreeNode pr=new DefaultTreeNode(new CommandeTreenode(s1, s2),co);
+				}
+			}
 			
-			
-			
-			
-			
-			
+			maSession.setAttribute("listeCommandesTree", root);
 			
 			
 			
@@ -165,7 +176,16 @@ public class ClientManagedBean implements Serializable{
 		return "accueilSite.xhtml";
 	}
 	
-	
+	public void modifMdp() {
+		int verif=clService.modifMdp(cl);
+		if(verif!=0) {
+			maSession.setAttribute("clSession", this.cl);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Votre mot de passe a été modifié"));
+			
+		}else {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Echec","La modification n'a pas pu être effectuée"));
+		}
+	}
 	
 	
 	
