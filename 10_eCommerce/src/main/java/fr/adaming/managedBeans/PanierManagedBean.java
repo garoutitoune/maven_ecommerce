@@ -117,6 +117,7 @@ public class PanierManagedBean implements Serializable{
 		//actualiser le panier de la session
 		maSession.setAttribute("paSession", this.panier);
 //		FacesContext.getCurrentInstance().getExternalContext().redirect("voirProds1Categ.xhtml");
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Le produit a été retiré du panier."));
 	}
 	
 	public void delProd2() {

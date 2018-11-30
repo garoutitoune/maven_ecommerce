@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +17,7 @@ import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
 
 @ManagedBean(name="clMB")
-@RequestScoped
+@SessionScoped
 public class ClientManagedBean implements Serializable{
 
 	//asso uml java
@@ -71,14 +72,13 @@ public class ClientManagedBean implements Serializable{
 
 	public String seConnecter() {
 		
-		
-		try {
-			this.cl=clService.isExist(this.cl);
+		this.cl=clService.isExist(this.cl);
+		if(this.cl!=null) {
 			maSession.setAttribute("clSession", this.cl);
 			this.connecte=true;
 			maSession.setAttribute("connexion", this.connecte);
-			return "monCommerce.xhtml";
-		} catch (Exception e) {
+			return "accueilSite.xhtml";
+		}else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("le login ou mdp n'est pas valide"));
 		}
 		
@@ -90,7 +90,7 @@ public class ClientManagedBean implements Serializable{
 		
 		Client clout=clService.addClient(this.cl);
 		if(clout.getId()!=0) {
-			return "monCommerce.xhtml";
+			return "accueilSite.xhtml";
 		}else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout a échoué"));
 			return "ajoutercl.xhtml";
@@ -101,9 +101,8 @@ public class ClientManagedBean implements Serializable{
 		
 		try {
 			clService.delClient(this.cl);
-			return "monCommerce.xhtml";
+			return "accueilSite.xhtml";
 		} catch (Exception e) {
-			// TODO: handle exception
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la suppression a échoué"));
 			return "delCl.xhtml";
 		}
@@ -113,10 +112,10 @@ public class ClientManagedBean implements Serializable{
 	public String modifClient(){
 		try {
 			Client clin=(Client) maSession.getAttribute("clSession");
-			System.out.println(clin);
 			this.cl=clService.modifClient(clin);
-			System.out.println(this.cl);
-			return "monCommerce.xhtml";
+			maSession.setAttribute("clSession", this.cl);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Vos informations ont été modifiées"));
+			return "modifCl.xhtml";
 			
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la modif a échoué"));
@@ -129,8 +128,9 @@ public class ClientManagedBean implements Serializable{
 	
 	public String deconnexion() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-
-		return "monCommerce.xhtml";
+		this.connecte=false;
+		maSession.setAttribute("connexion", this.connecte);
+		return "accueilSite.xhtml";
 	}
 	
 	

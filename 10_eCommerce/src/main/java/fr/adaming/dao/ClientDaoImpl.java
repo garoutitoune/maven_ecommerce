@@ -42,9 +42,17 @@ public class ClientDaoImpl implements IClientDao{
 	}
 
 	@Override
-	public Client modifClient(Client cl) {
+	public Client modifClient(Client cl) { //sans modifier le mdp
 		Session s=sf.getCurrentSession();
-		s.saveOrUpdate(cl);
+		//req hql
+		String req="UPDATE Client cl SET cl.adresse=:padr, cl.email=:pmail, cl.nom=:pnom, cl.tel=:ptel WHERE cl.id=:pid"; 
+		Query q=s.createQuery(req);
+		q.setParameter("pmail", cl.getEmail());
+		q.setParameter("padr", cl.getAdresse());
+		q.setParameter("pnom", cl.getNom());
+		q.setParameter("ptel", cl.getTel());
+		q.setParameter("pid",cl.getId());
+		q.executeUpdate();
 		return cl;
 	}
 

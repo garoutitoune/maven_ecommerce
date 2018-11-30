@@ -3,36 +3,44 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>modif client</title>
 
 </h:head>
 <h:body>
-	<ui:composition template="/templates/layout2.xhtml">
+	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
 			
 			
-			<h1>formulaire de modif </h1>
-<h:form>
-
+			<h1>Modifier mes informations </h1>
+			<hr/>
+<h:form id="clmodif">
+<p:growl showDetail="true" />
 <h:panelGrid columns="2">
-Id: <h:outputText value="#{sessionScope.clSession.id}"></h:outputText>
+
+Identifiant: <h:outputText value="#{sessionScope.clSession.id}"></h:outputText>
 Nom: <h:inputText value="#{sessionScope.clSession.nom}" />
 Adresse: <h:inputText value="#{sessionScope.clSession.adresse}" />
 Email: <h:inputText value="#{sessionScope.clSession.email}" />
 Téléphone: <h:inputText value="#{sessionScope.clSession.tel}" />
-Mot de passe: <h:inputText value="#{sessionScope.clSession.mdp}" />
 
-<h:commandButton value="Modifier" action="#{clMB.modifClient}"/> 
+
+<h:commandButton value="Modifier" action="#{clMB.modifClient}" update="clmodif"/> 
 
 </h:panelGrid>
-</h:form>
 <h1><h:messages style="color:red; text-align:center" /></h1>
+</h:form>
+
 			
-
-
+<h1>Modifier mon mot de passe </h1>
+	<hr/>
+	<h:form>
+		Mot de passe: <h:inputSecret value="#{sessionScope.clSession.mdp}" />
+	</h:form>
+<br/>
 		</ui:define>
 	</ui:composition>
 
