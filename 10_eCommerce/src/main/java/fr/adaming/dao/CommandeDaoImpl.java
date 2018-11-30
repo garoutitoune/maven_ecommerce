@@ -2,12 +2,15 @@ package fr.adaming.dao;
 
 
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fr.adaming.model.Client;
 import fr.adaming.model.Commande;
 
 @Repository
@@ -45,6 +48,16 @@ public class CommandeDaoImpl implements ICommandeDao{
 	public Commande searchCommandeById(Commande commande) {
 		Session s=sf.getCurrentSession();
 		return (Commande) s.get(Commande.class, commande.getId());
+	}
+
+	@Override
+	public List<Commande> searchCommandeByClId(Client client) {
+		Session s=sf.getCurrentSession();
+		//req HQL
+		String req="FROM Commande co WHERE co.client.id=:pid";
+		Query q=s.createQuery(req);
+		q.setParameter("pid", client.getId());
+		return q.list();
 	}
 
 	

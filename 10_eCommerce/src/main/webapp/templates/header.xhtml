@@ -17,8 +17,8 @@
 
 		<h:form>
 			<p:menubar>
-				<p:submenu label="Accueil" icon="ui-icon-home">
-					<p:menuitem value="Notre entreprise" url="accesSite.xhtml" />
+				<p:submenu label="Accueil" icon="ui-icon-home" >
+					<p:menuitem value="Notre entreprise" url="accessSite.xhtml" />
 					<p:menuitem value="Nos magasins" url="#" />
 				</p:submenu>
 
@@ -37,16 +37,16 @@
 
 				<p:submenu label="Espace Client" icon="ui-icon-person">
 					<p:menuitem value="Se Connecter/S'inscrire" url="logincl.xhtml"
-						rendered="#{!clMB.connecte}" />
-					<p:menuitem value="Déconnexion" rendered="#{clMB.connecte}"
+						rendered="#{!sessionScope.connexion}" />
+					<p:menuitem value="Déconnexion" rendered="#{sessionScope.connexion}"
 						action="#{clMB.deconnexion}" />
-					<p:separator rendered="#{clMB.connecte}" />
+					<p:separator rendered="#{sessionScope.connexion}" />
 					<p:menuitem value="Modifier mes informations" url="modifCl.xhtml"
-						rendered="#{clMB.connecte}" />
-					<p:menuitem value="Mes commandes" url="#"
-						rendered="#{clMB.connecte}" />
+						rendered="#{sessionScope.connexion}" />
+					<p:menuitem value="Mes commandes" url="commandesCl.xhtml"
+						rendered="#{sessionScope.connexion}" action="coMB.listeCommandesCl"/>
 					<p:menuitem value="Mes avantages" url="#"
-						rendered="#{clMB.connecte}" />
+						rendered="#{sessionScope.connexion}" />
 				</p:submenu>
 
 				<p:submenu label="Espace gerant" icon="ui-icon-person">

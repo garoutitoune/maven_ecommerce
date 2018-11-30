@@ -1,5 +1,6 @@
 package fr.adaming.managedBeans;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +18,7 @@ import fr.adaming.model.Client;
 import fr.adaming.service.IClientService;
 
 @ManagedBean(name="clMB")
-@SessionScoped
+@RequestScoped
 public class ClientManagedBean implements Serializable{
 
 	//asso uml java
@@ -126,10 +127,9 @@ public class ClientManagedBean implements Serializable{
 		
 	}
 	
-	public String deconnexion() {
+	public String deconnexion() throws IOException {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-		this.connecte=false;
-		maSession.setAttribute("connexion", this.connecte);
+		FacesContext.getCurrentInstance().getExternalContext().redirect("accueilSite.xhtml");
 		return "accueilSite.xhtml";
 	}
 	

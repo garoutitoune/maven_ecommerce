@@ -1,6 +1,8 @@
 package fr.adaming.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,15 @@ public class CommandeServiceImpl implements ICommandeService{
 	@Override
 	public Commande searchCommandeById(Commande commande) {
 		return codao.searchCommandeById(commande);
+	}
+
+
+
+
+
+	@Override
+	public List<Commande> searchCommandeByClId(Client client) {
+		return codao.searchCommandeByClId(client);
 	}
 
 	

@@ -1,5 +1,7 @@
 package fr.adaming.managedBeans;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
 import javax.faces.bean.ManagedBean;
@@ -24,7 +26,7 @@ public class CommandeManagedBean {
 	
 	//attributs
 	private Commande commande;
-	
+	private List<Commande> listeCommandesCl;
 	private HttpSession maSession;
 	private Client client;
 	
@@ -51,6 +53,14 @@ public class CommandeManagedBean {
 		this.commande = commande;
 	}
 	
+	
+	
+	public List<Commande> getListeCommandesCl() {
+		return listeCommandesCl;
+	}
+	public void setListeCommandesCl(List<Commande> listeCommandesCl) {
+		this.listeCommandesCl = listeCommandesCl;
+	}
 	public Client getClient() {
 		return client;
 	}
@@ -67,6 +77,11 @@ public class CommandeManagedBean {
 		coservice.delCommande(this.commande);
 	}
 	
+	public void listeCommandesCl() {
+		//recup le client de la session
+		this.client=(Client) maSession.getAttribute("clSession");
+		this.listeCommandesCl=coservice.searchCommandeByClId(this.client);
+	}
 	
 
 }
