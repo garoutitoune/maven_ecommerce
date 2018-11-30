@@ -28,8 +28,64 @@
     
     
     
-    /* */
+    /* -**************** Pour afficher les produits et les categories*/
     
-. ui-datagrid-content ui-widget-content ui-grid ui-grid-responsive{
-	background-color: #7F9CD8;
-}    
+    
+ /* Mise en forme des tableaux */   
+.ui-widget-content.ui-datatable-empty-message{
+	background-color: #CEDED8 !important;
+		color: white !important;
+}
+
+.ui-datatable-header.ui-widget-header.ui-corner-top{
+	background-color: #096C6C !important;
+	color: white !important;
+		
+}
+.ui-state-default{
+	background-color: #096C6C !important;
+	color: white !important;
+		
+}
+
+.corp{
+	width: 85%;
+	margin: auto;
+	
+}
+.ui-grid-row{
+	background-color: #31A9AE !important;
+}  
+
+.ui-datagrid-column.ui-grid-col-4 {
+	background-color: #31A9AE !important;
+}
+.ui-panel-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-all{
+	color: white !important;
+	background-color: #096C6C !important;
+}
+
+.ui-panel-content.ui-widget-content{
+	background-color: #CEDED8 !important;
+	
+}
+.ui-datagrid-header.ui-widget-header.ui-corner-top{
+	color: white !important;
+	background-color: #096C6C !important;
+}
+.ui-paginator.ui-paginator-top.ui-widget-header{
+	color: white !important;
+	background-color: #096C6C !important;
+}
+
+.ui-paginator.ui-paginator-bottom.ui-widget-header.ui-corner-bottom{
+	color: white !important;
+	background-color: #096C6C !important;	
+}
+
+/* Mise en page de la page contact*/
+
+.contactGer{
+	width: 600px;
+	margin: auto;
+}

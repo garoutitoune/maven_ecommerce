@@ -33,15 +33,17 @@
 
 						<p:panel header="N°pro :#{pro.id} -- cat : #{pro.categorie.nom}"
 							style="text-align:center">
-							<h:panelGrid columns="1" style="width:100%">
+							<h:panelGrid columns="1" style="width:100%;">
 								<h:graphicImage value="#{pro.image}" />
 
 								<h:outputText value="#{pro.designation}" />
 								<hr />
 								<h:outputText value="#{pro.description}" />
 								<hr />
+								<b>Prix :</b>
 								<h:outputText value="#{pro.prix}" />
 								<hr />
+								<b>Quantité :</b>
 								<h:outputText value="#{pro.quantite}" />
 								<hr />
 								<p:commandButton icon="ui-icon-circle-plus"
@@ -54,17 +56,11 @@
 									<f:setPropertyActionListener value="#{pro}"
 										target="#{paMB.produit}"></f:setPropertyActionListener>
 								</p:commandButton>
-
-
 							</h:panelGrid>
 						</p:panel>
 
 					</p:dataGrid>
 				</h:form>
-
-
-
-
 
 			</div>
 

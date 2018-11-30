@@ -47,9 +47,6 @@ public class GerantManagedBean implements Serializable {
 	private Gerant gerant;
 	private List<Categorie> listeCategorie;
 	private List<Produit> listeProduit;
-	private String test1;
-	private String sujet;
-	private String mail;
 	private boolean connecter = false;
 
 	// constructeur vide
@@ -82,29 +79,7 @@ public class GerantManagedBean implements Serializable {
 		this.listeProduit = listeProduit;
 	}
 
-	public String getTest1() {
-		return test1;
-	}
-
-	public void setTest1(String test1) {
-		this.test1 = test1;
-	}
-
-	public String getSujet() {
-		return sujet;
-	}
-
-	public void setSujet(String sujet) {
-		this.sujet = sujet;
-	}
-
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
+	
 
 	public boolean isConnecter() {
 		return connecter;

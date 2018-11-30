@@ -22,11 +22,9 @@
 					<p:menuitem value="Nos magasins" url="#" />
 				</p:submenu>
 
-				<p:submenu label="Parcourir les catégories"
-					icon="ui-icon-circle-zoomout">
-					<p:menuitem value="Voir toutes les catégories"
+					<p:menuitem value="Voir toutes les catégories" icon="ui-icon-circle-zoomout"
 						action="#{caMB.getAllCategorie}" />
-				</p:submenu>
+				
 
 				<p:submenu label="Aide" icon="ui-icon-help">
 					<p:menuitem value="Modes de livraison" url="#" />
@@ -78,6 +76,7 @@
 				value="#{proMB.produit.designation}" />
 			<h:commandButton action="#{proMB.rechercherByDesignation}"
 				value="Rechercher" />
+				<div style="position: relative; width: 100px; height: 100px; display: block; bottom: 40px; left: 80%;"><p:graphicImage value="resources/images/logo.png" style="width: 100px; height: 100px"/></div>
 		</h:form>
 
 	</ui:composition>

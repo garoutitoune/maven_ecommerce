@@ -14,22 +14,23 @@
 	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
 
-			<p:growl id="messages" showDetail="true" />
+			
 			<h:form>
-				<div>
+			<p:growl id="messages" showDetail="true" />
+				<div class="contactGer">
 				<p>Nous traitons votre demande en moins de 24h</p>
 					<p:panelGrid columns="2">
 						<p:outputLabel value="Indiquez votre mail" />
-						<p:inputText value="#{gMB.mail}" required="true"> <f:validateRegex
+						<p:inputText value="#{mailMB.mail}" required="true"> <f:validateRegex
 		pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" /></p:inputText>
 						
-						<p:outputLabel value="Indiquez votre sujet" />
-						<p:inputText value="#{gMB.sujet}" required="true" />
+						<p:outputLabel value=" Vueillez indiquer votre sujet" />
+						<p:inputText value="#{mailMB.sujet}" required="true" />
 						
-						<p:outputLabel value="Indiquez votre requête" />
-						<p:inputTextarea value="#{gMB.test1}" required="true"/>
+						<p:outputLabel value="Vueillez indiquer votre requête" />
+						<p:inputTextarea value="#{mailMB.test1}" required="true"/>
 						
-						<p:commandButton value="Envoyer le mail" action="#{gMB.contactGerant}" update="messages"/>
+						<p:commandButton value="Envoyer le mail" action="#{mailMB.contactGerant}" update="messages"/>
 					</p:panelGrid>
 				</div>
 			</h:form>
