@@ -14,9 +14,10 @@
 	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
 
-			<p:growl id="messages" showDetail="true" />
+		
 			<div style="height: 85%; margin: auto;">
 				<h:form id="form">
+					<p:growl id="messages" showDetail="true" />
 					<p:dataGrid var="ca" value="#{sessionScope.listeCaSession}"
 						columns="3" layout="grid" rows="12" paginator="true" id="cars"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -37,7 +38,7 @@
 								<h:outputText value="#{sessionScope.listeProSession.size()}" />
 
 								<hr />
-								<p:commandButton icon="fa fa-fw fa-search-minus"
+								<p:commandButton icon="ui-icon-search"
 									action="#{proMB.getProduitByCat}">
 									<f:setPropertyActionListener value="#{ca}"
 										target="#{proMB.categorie}"></f:setPropertyActionListener>

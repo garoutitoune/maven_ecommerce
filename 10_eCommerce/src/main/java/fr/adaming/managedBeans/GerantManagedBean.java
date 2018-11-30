@@ -3,7 +3,6 @@ package fr.adaming.managedBeans;
 import java.io.Serializable;
 import java.util.List;
 
-
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -23,17 +22,14 @@ public class GerantManagedBean implements Serializable {
 
 	// transformation de l'association UML en JAVA
 
-	@ManagedProperty(value="#{gService}")
+	@ManagedProperty(value = "#{gService}")
 	private IGerantService gerantService;
 
-
-	@ManagedProperty(value="#{caService}")
+	@ManagedProperty(value = "#{caService}")
 	private ICategorieService categorieService;
 
-	@ManagedProperty(value="#{proService}")
+	@ManagedProperty(value = "#{proService}")
 	private IProduitService produitService;
-	
-	
 
 	public void setGerantService(IGerantService gerantService) {
 		this.gerantService = gerantService;
@@ -54,6 +50,7 @@ public class GerantManagedBean implements Serializable {
 	private String test1;
 	private String sujet;
 	private String mail;
+	private boolean connecter = false;
 
 	// constructeur vide
 	public GerantManagedBean() {
@@ -85,7 +82,6 @@ public class GerantManagedBean implements Serializable {
 		this.listeProduit = listeProduit;
 	}
 
-	 
 	public String getTest1() {
 		return test1;
 	}
@@ -110,12 +106,21 @@ public class GerantManagedBean implements Serializable {
 		this.mail = mail;
 	}
 
+	public boolean isConnecter() {
+		return connecter;
+	}
+
+	public void setConnecter(boolean connecter) {
+		this.connecter = connecter;
+	}
+
 	// les autres methodes
 	public String seConnecter() {
+		// aller chercher le formateur dans la bd
+		Gerant gOut = gerantService.isExist(gerant);
+		if (gOut != null) {
 
-		try {
-			// aller chercher le formateur dans la bd
-			Gerant gOut = gerantService.isExist(gerant);
+			this.connecter = true;
 
 			// recuperer les categories
 			this.listeCategorie = categorieService.getAllCategorie();
@@ -124,25 +129,47 @@ public class GerantManagedBean implements Serializable {
 			this.listeProduit = produitService.getAllProduit();
 
 			// ajouter le formateur dans la session
+
+			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("gConnexion", this.connecter);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("gSession", gOut);
+
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCaSession",
 					this.listeCategorie);
 			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeProSession",
 					this.listeProduit);
 
 			return "accueil";
-		} catch (Exception ex) {
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("le login ou mdp n'est pas valide"));
-
+			return "login";
 		}
 
-		return "login";
+	}
+
+	public String gestionProCat() {
+		// recuperer les categories
+		this.listeCategorie = categorieService.getAllCategorie();
+
+		// recuperer les produits
+		this.listeProduit = produitService.getAllProduit();
+
+		// ajouter le formateur dans la session
+
+		
+		
+
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCaSession",
+				this.listeCategorie);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeProSession",
+				this.listeProduit);
+
+		return "accueil";
 	}
 
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
-		return "login";
+		return "accessSite";
 	}
 
 	public String accessSite() {
@@ -153,14 +180,12 @@ public class GerantManagedBean implements Serializable {
 		this.listeProduit = produitService.getAllProduit();
 
 		// ajouter la liste de categorie et de produit à la session
-		
+
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCaSession",
 				this.listeCategorie);
 		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeProSession",
 				this.listeProduit);
 		return "accueilSite";
 	}
-	
-	
 
 }

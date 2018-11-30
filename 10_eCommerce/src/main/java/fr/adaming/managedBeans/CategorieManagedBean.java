@@ -59,6 +59,7 @@ public class CategorieManagedBean implements Serializable {
 		// recuperer la session en cours
 		maSession = (HttpSession) FacesContext.getCurrentInstance().getCurrentInstance().getExternalContext()
 				.getSession(false);
+		maSession.getAttribute("gConnexion");
 
 		// recuperer le formateur de la session
 		this.gerant = (Gerant) maSession.getAttribute("gSession");

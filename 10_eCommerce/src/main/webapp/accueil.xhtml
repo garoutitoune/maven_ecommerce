@@ -14,10 +14,10 @@
 	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
 
-			<p:growl id="messages" showDetail="true" />
+
 			<div>
 				<h:form>
-
+					<p:growl id="messages" showDetail="true" />
 					<p:dataTable var="cat" value="#{sessionScope.listeCaSession}"
 						id="tableau">
 
@@ -53,18 +53,17 @@
 
 						<p:column headerText="Operations">
 
-							<p:commandLink action="#{caMB.supprimerCategorie}"
-								update="all" ajax="false">
+							<p:commandLink action="#{caMB.supprimerCategorie}" update="all"
+								ajax="false">
 								<h:graphicImage value="/resources/images/supprimer.png"
 									title="Supprimer" />
-									<p:confirm header="Confirmation" message="Are you sure?"
+								<p:confirm header="Confirmation" message="Are you sure?"
 									icon="pi pi-exclamation-triangle" />
 								<f:setPropertyActionListener value="#{cat}"
 									target="#{caMB.categorie}" />
 							</p:commandLink>
 							<p:commandLink title="modifier"
-								action="#{caMB.modifierLienCategorie}" update="all"
-								ajax="false">
+								action="#{caMB.modifierLienCategorie}" update="all" ajax="false">
 								<h:graphicImage value="/resources/images/editer.png" />
 								<f:setPropertyActionListener value="#{cat}"
 									target="#{caMB.categorie}" />
@@ -129,8 +128,8 @@
 						</p:column>
 						<p:column headerText="Operations">
 
-							<p:commandLink action="#{proMB.supprimerProduit}"
-								update="all" ajax="false">
+							<p:commandLink action="#{proMB.supprimerProduit}" update="all"
+								ajax="false">
 								<h:graphicImage value="/resources/images/supprimer.png" />
 								<p:confirm header="Confirmation" message="Are you sure?"
 									icon="pi pi-exclamation-triangle" />
@@ -139,8 +138,7 @@
 							</p:commandLink>
 
 							<h:commandLink title="modifier"
-								action="#{proMB.modifierLienProduit}" update="all"
-								ajax="false">
+								action="#{proMB.modifierLienProduit}" update="all" ajax="false">
 								<h:graphicImage value="/resources/images/editer.png" />
 								<f:setPropertyActionListener value="#{pro}"
 									target="#{proMB.produit}" />

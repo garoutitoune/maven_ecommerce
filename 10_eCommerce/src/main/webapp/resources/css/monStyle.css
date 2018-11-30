@@ -25,3 +25,11 @@
         width: 85%;
         padding-left: 25px;
     }
+    
+    
+    
+    /* */
+    
+. ui-datagrid-content ui-widget-content ui-grid ui-grid-responsive{
+	background-color: #7F9CD8;
+}    

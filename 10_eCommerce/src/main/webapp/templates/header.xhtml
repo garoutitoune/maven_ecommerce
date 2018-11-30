@@ -18,7 +18,7 @@
 		<h:form>
 			<p:menubar>
 				<p:submenu label="Accueil" icon="ui-icon-home">
-					<p:menuitem value="Notre entreprise" url="monCommerce.xhtml" />
+					<p:menuitem value="Notre entreprise" url="accesSite.xhtml" />
 					<p:menuitem value="Nos magasins" url="#" />
 				</p:submenu>
 
@@ -39,7 +39,7 @@
 					<p:menuitem value="Se Connecter/S'inscrire" url="logincl.xhtml"
 						rendered="#{!clMB.connecte}" />
 					<p:menuitem value="Déconnexion" rendered="#{clMB.connecte}"
-						action="#{gMB.seDeconnecter}" />
+						action="#{clMB.deconnexion}" />
 					<p:separator rendered="#{clMB.connecte}" />
 					<p:menuitem value="Modifier mes informations" url="modifCl.xhtml"
 						rendered="#{clMB.connecte}" />
@@ -50,7 +50,11 @@
 				</p:submenu>
 
 				<p:submenu label="Espace gerant" icon="ui-icon-person">
-					<p:menuitem value="Se Connecter/S'inscrire" url="login.xhtml" />
+					<p:menuitem value="Se Connecter/S'inscrire" url="login.xhtml" rendered="#{!sessionScope.gConnexion}"/>
+					<p:menuitem value="Déconnexion" rendered="#{sessionScope.gConnexion}"
+						action="#{gMB.seDeconnecter}" />
+						<p:menuitem value="Gestion pro/cat" rendered="#{sessionScope.gConnexion}"
+						action="#{gMB.gestionProCat}" />
 				</p:submenu>
 
 				<p:menuitem value="Panier" url="panier.xhtml" icon="ui-icon-cart" />
