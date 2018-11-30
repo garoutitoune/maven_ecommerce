@@ -77,10 +77,12 @@ public class CommandeManagedBean {
 		coservice.delCommande(this.commande);
 	}
 	
-	public void listeCommandesCl() {
+	public void listeCommandesmeth() {
 		//recup le client de la session
 		this.client=(Client) maSession.getAttribute("clSession");
+		System.out.println(this.client);
 		this.listeCommandesCl=coservice.searchCommandeByClId(this.client);
+		System.out.println(this.listeCommandesCl.size());
 	}
 	
 

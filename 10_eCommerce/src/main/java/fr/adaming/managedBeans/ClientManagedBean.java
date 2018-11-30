@@ -2,6 +2,7 @@ package fr.adaming.managedBeans;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -13,9 +14,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 import fr.adaming.model.Client;
+import fr.adaming.model.Commande;
 import fr.adaming.service.IClientService;
+import fr.adaming.service.ICommandeService;
 
 @ManagedBean(name="clMB")
 @RequestScoped
@@ -24,12 +29,19 @@ public class ClientManagedBean implements Serializable{
 	//asso uml java
 	@ManagedProperty(value="#{clservice}")
 	private IClientService clService;
+	@ManagedProperty(value="#{coservice}")
+	private ICommandeService coService;
 	//setter pour injection
 	public void setClService(IClientService clService) {
 		this.clService = clService;
 	}
 	
 	
+	public void setCoService(ICommandeService coService) {
+		this.coService = coService;
+	}
+
+
 	//attributs
 	private HttpSession maSession;
 	private Client cl;
@@ -78,6 +90,26 @@ public class ClientManagedBean implements Serializable{
 			maSession.setAttribute("clSession", this.cl);
 			this.connecte=true;
 			maSession.setAttribute("connexion", this.connecte);
+			
+			//charger la liste des commandes
+			//recup le client de la session
+			System.out.println(this.cl);
+			List<Commande> liste =coService.searchCommandeByClId(this.cl);
+			maSession.setAttribute("listeCommandes", liste);
+			System.out.println(liste.size());
+			//creer le treenode correspondant
+			TreeNode root = new DefaultTreeNode(new Document("Files", "-", "Folder"), null);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			return "accueilSite.xhtml";
 		}else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("le login ou mdp n'est pas valide"));

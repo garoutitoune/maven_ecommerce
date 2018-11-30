@@ -18,11 +18,15 @@
 	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
 
+<br/>
 <h:form>
-		<p:dataTable var="co" value="#{coMB.listeCommandesCl}" id="idProds" paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
+		<p:dataTable var="co" value="#{sessionScope.listeCommandes}" id="idProds" paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
                  paginator="true" rows="5" paginatorPosition="bottom">
 		
-		<p:column headerText="Date" >
+			<p:column headerText="Identifiant" >
+				<h:outputText value="#{co.id}" />
+			</p:column>
+			<p:column headerText="Date" >
 				<h:outputText value="#{co.date}" />
 			</p:column>
 
@@ -30,7 +34,7 @@
 
 
 </h:form>
-	
+	<br/>
 
 </ui:define>
 </ui:composition>

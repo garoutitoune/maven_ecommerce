@@ -3,6 +3,7 @@ package fr.adaming.managedBeans;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -138,6 +139,9 @@ public class PanierManagedBean implements Serializable{
 			//vider le panier
 			maSession.setAttribute("paSession", new Panier());
 			this.panier=new Panier();
+			//actualiser la liste de commandes
+			maSession.setAttribute("listeCommandes", coservice.searchCommandeByClId((Client) maSession.getAttribute("clSession")));
+			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","La commande a été enregistrée."));
 		} catch (Exception e) {
 			System.out.println("error message:"+e.getMessage());
