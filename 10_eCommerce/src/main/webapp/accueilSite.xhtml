@@ -55,56 +55,7 @@
 						</p:panel>
 
 					</p:dataGrid>
-
-
-					<p:dataTable var="li" value="#{paMB.panier.listeLignes}"
-						paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {CurrentPageReport}"
-						paginator="true" rows="5" paginatorPosition="bottom">
-
-						<f:facet name="header">
-							<h:outputText value="Panier" />
-						</f:facet>
-
-						<p:column headerText="Photo">
-							<h:graphicImage value="#{li.produit.image}" />
-						</p:column>
-
-						<p:column headerText="Désignation">
-							<h:outputText value="#{li.produit.designation}" />
-						</p:column>
-
-						<p:column headerText="Quantité">
-							<h:outputText value="#{li.qt}" />
-						</p:column>
-
-						<p:column headerText="Prix">
-							<h:outputText value="#{li.prix}" />
-						</p:column>
-
-
-						<p:column headerText="Opérations">
-							<p:commandButton icon="ui-icon-circle-plus"
-								action="#{paMB.addProd}" update="idProdsForm">
-								<f:setPropertyActionListener value="#{li.produit}"
-									target="#{paMB.produit}"></f:setPropertyActionListener>
-							</p:commandButton>
-							<p:commandButton icon="ui-icon-circle-minus"
-								action="#{paMB.delProd}" update="idProdsForm">
-								<f:setPropertyActionListener value="#{li.produit}"
-									target="#{paMB.produit}"></f:setPropertyActionListener>
-							</p:commandButton>
-							<p:commandButton icon="ui-icon-trash" action="#{paMB.delProd2}"
-								update="idProdsForm">
-								<f:setPropertyActionListener value="#{li.produit}"
-									target="#{paMB.produit}"></f:setPropertyActionListener>
-							</p:commandButton>
-
-							<p:commandButton icon="ui-icon-check" action="#{paMB.savePanier}">
-							</p:commandButton>
-						</p:column>
-
-
-					</p:dataTable>
+		
 				</h:form>
 
 			</div>

@@ -27,15 +27,12 @@ public class ProduitManagedBean implements Serializable {
 
 	// transformation de l'association uml en JAVA
 
-	@ManagedProperty(value="#{proService}")
+	@ManagedProperty(value = "#{proService}")
 	private IProduitService produitService;
-	
-	
 
 	public void setProduitService(IProduitService produitService) {
 		this.produitService = produitService;
 	}
-
 
 	// declaration des attributs
 	private Produit produit;
@@ -61,11 +58,8 @@ public class ProduitManagedBean implements Serializable {
 
 		// recuperer le formateur de la session
 		this.gerant = (Gerant) maSession.getAttribute("gSession");
-		
-		
+
 	}
-	
-	
 
 	public Categorie getCategorie() {
 		return categorie;
@@ -114,32 +108,37 @@ public class ProduitManagedBean implements Serializable {
 	public void setIndice(boolean indice) {
 		this.indice = indice;
 	}
-	//méthodes
-	
-	
+	// méthodes
 
 	public void listeprodsmeth(int i) throws IOException {
 //		FacesContext.getCurrentInstance().getExternalContext().redirect("voirProds1Categ.xhtml");
-		//recup la liste des produits pour 1 catég
+		// recup la liste des produits pour 1 catég
 		this.categorie.setId(i);
-		this.listeProds=produitService.getAllProduitByCat(new Produit(), this.categorie);
+		this.listeProds = produitService.getAllProduitByCat(new Produit(), this.categorie);
 		maSession.setAttribute("listeProds1Categ", this.listeProds);
 //		return "voirProds1Categ.xhtml";
 		FacesContext.getCurrentInstance().getExternalContext().redirect("voirProds1Categ.xhtml");
 	}
-	
+
 	public String produitByCat() {
-		//recuperer la liste de produit selon la categorie
-		List<Produit> listePro=produitService.getAllProduitByCat(produit, categorie);
-		
-		indice=true;
-		
+		// recuperer la liste de produit selon la categorie
+		List<Produit> listePro = produitService.getAllProduitByCat(produit, categorie);
+
+		indice = true;
+
 		maSession.setAttribute("listeProCatSession", listePro);
 		return "accueil";
 	}
-	
-	
-	
+
+	public String getProduitByCat() {
+		// recuperer la liste de produit selon la categorie
+		List<Produit> listePro = produitService.getAllProduitByCat(produit, categorie);
+		
+		maSession.setAttribute("listeProCatSession", listePro);
+		return "accueilSite";
+		
+	}
+
 	public String ajouterProduit() {
 		this.produit.setPhoto(file.getContents());
 		Produit proOut = produitService.addProduit(produit, categorie);
@@ -158,12 +157,11 @@ public class ProduitManagedBean implements Serializable {
 			return "ajouterPro";
 		}
 	}
-	
-	
+
 	public String supprimerProduit() {
-		int verif=produitService.deleteProduit(produit);
-		
-		if(verif!=0){
+		int verif = produitService.deleteProduit(produit);
+
+		if (verif != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
 			List<Produit> liste = produitService.getAllProduit();
 
@@ -177,12 +175,11 @@ public class ProduitManagedBean implements Serializable {
 			return "supprimerPro";
 		}
 	}
-	
-	
+
 	public String modifierProduit() {
 		this.produit.setPhoto(file.getContents());
-		int verif=produitService.modifierProduit(produit, categorie);
-		if(verif!=0){
+		int verif = produitService.modifierProduit(produit, categorie);
+		if (verif != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
 			List<Produit> liste = produitService.getAllProduit();
 
@@ -196,29 +193,28 @@ public class ProduitManagedBean implements Serializable {
 			return "modifierPro";
 		}
 	}
-	
+
 	public String modifierLienProduit() {
 		return "modifierPro";
 	}
-	
+
 	public String rechercherByDesignation() {
-		List<Produit> listeOut=produitService.getProduitByDes(produit, categorie);
-		if(listeOut!=null) {
+		List<Produit> listeOut = produitService.getProduitByDes(produit, categorie);
+		if (listeOut != null) {
 			maSession.setAttribute("listeProRechSession", listeOut);
-			
+
 			return "recherchePro";
-			
-		}else {
+
+		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la recherche a échoué"));
 			return "recherchePro";
 		}
 	}
-	
-	
+
 	public String rechercher() {
-		Produit pro=produitService.getProduitById(produit);
+		Produit pro = produitService.getProduitById(produit);
 		maSession.setAttribute("proSession1", pro);
-		
+
 		return "recherche";
 	}
 }

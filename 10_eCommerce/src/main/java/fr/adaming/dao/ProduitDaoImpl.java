@@ -119,18 +119,18 @@ public class ProduitDaoImpl implements IProduitDao {
 		Session s = sf.getCurrentSession();
 
 		// ecrire la requete en SQL
-		String req = "SELECT * FROM produits WHERE ca_id=:pIdCa AND designation LIKE :pDesign";
+		String req = "FROM Produit p WHERE p.categorie.id=:pIdCa AND designation LIKE :pDesign";
 
-		SQLQuery query = s.createSQLQuery(req);
+		Query query = s.createQuery(req);
 
 		query.setParameter("pIdCa", pro.getCategorie().getId());
-		query.setParameter("pDesign", "%" + pro.getDesignation() + "%");
+		query.setParameter("pDesign", "%"+pro.getDesignation()+"%");
 
 		List<Produit> liste = query.list();
 
-//		for (Produit pr : liste) {
-//			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
-//		}
+		for (Produit pr1 : liste) {
+			pr1.setImage("data:image/png);base64," + Base64.encodeBase64String(pr1.getPhoto()));
+		}
 		return liste;
 	}
 

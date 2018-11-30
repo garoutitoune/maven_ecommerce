@@ -54,25 +54,29 @@
 						<p:column headerText="Operations">
 
 							<p:commandLink action="#{caMB.supprimerCategorie}"
-								update="tableau" ajax="false">
+								update="all" ajax="false">
 								<h:graphicImage value="/resources/images/supprimer.png"
 									title="Supprimer" />
+									<p:confirm header="Confirmation" message="Are you sure?"
+									icon="pi pi-exclamation-triangle" />
 								<f:setPropertyActionListener value="#{cat}"
 									target="#{caMB.categorie}" />
 							</p:commandLink>
 							<p:commandLink title="modifier"
-								action="#{caMB.modifierLienCategorie}" update="tableau"
+								action="#{caMB.modifierLienCategorie}" update="all"
 								ajax="false">
 								<h:graphicImage value="/resources/images/editer.png" />
 								<f:setPropertyActionListener value="#{cat}"
 									target="#{caMB.categorie}" />
 							</p:commandLink>
-							
-							<p:commandLink title="Voir produit" action="#{proMB.produitByCat}" ajax="false">
-							<h:graphicImage value="/resources/images/eye.png"/>
-							<f:setPropertyActionListener value="#{cat}" target="#{proMB.categorie}"></f:setPropertyActionListener>
-							
-							
+
+							<p:commandLink title="Voir produit"
+								action="#{proMB.produitByCat}" ajax="false">
+								<h:graphicImage value="/resources/images/eye.png" />
+								<f:setPropertyActionListener value="#{cat}"
+									target="#{proMB.categorie}"></f:setPropertyActionListener>
+
+
 							</p:commandLink>
 						</p:column>
 					</p:dataTable>
@@ -85,7 +89,7 @@
 				<h:form rendered="#{proMB.indice}">
 
 					<p:dataTable var="pro" value="#{sessionScope.listeProCatSession}"
-						id="tableau" >
+						id="tableau">
 
 						<f:facet name="header">
 							<p:outputPanel>
@@ -126,20 +130,21 @@
 						<p:column headerText="Operations">
 
 							<p:commandLink action="#{proMB.supprimerProduit}"
-								update="tableau" ajax="false">
+								update="all" ajax="false">
 								<h:graphicImage value="/resources/images/supprimer.png" />
-
+								<p:confirm header="Confirmation" message="Are you sure?"
+									icon="pi pi-exclamation-triangle" />
 								<f:setPropertyActionListener value="#{pro}"
 									target="#{proMB.produit}" />
 							</p:commandLink>
 
-							<p:commandLink title="modifier"
-								action="#{proMB.modifierLienProduit}" update="tableau"
+							<h:commandLink title="modifier"
+								action="#{proMB.modifierLienProduit}" update="all"
 								ajax="false">
 								<h:graphicImage value="/resources/images/editer.png" />
 								<f:setPropertyActionListener value="#{pro}"
 									target="#{proMB.produit}" />
-							</p:commandLink>
+							</h:commandLink>
 						</p:column>
 					</p:dataTable>
 				</h:form>
@@ -151,13 +156,20 @@
 							title="ajouterPro" />
 					</h:link>
 					<h:commandLink action="#{gMB.pdf}">
-					<h:graphicImage value="/resources/images/pdf.png" title="pdf"/>
+						<h:graphicImage value="/resources/images/pdf.png" title="pdf" />
 					</h:commandLink>
-					
+
 				</h:form>
 			</div>
 
-			
+			<h:form>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Yes" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
+			</h:form>
 
 		</ui:define>
 	</ui:composition>

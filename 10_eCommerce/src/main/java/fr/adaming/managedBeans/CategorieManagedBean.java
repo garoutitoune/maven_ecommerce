@@ -149,5 +149,11 @@ public class CategorieManagedBean implements Serializable {
 		}
 
 	}
+	public String getAllCategorie() {
+		List<Categorie> listeCa=categorieService.getAllCategorie();
+		maSession.setAttribute("listeCaSession", listeCa);
+		
+		return "listeCa";
+	}
 
 }

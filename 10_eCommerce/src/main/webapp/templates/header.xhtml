@@ -14,16 +14,7 @@
 
 <h:body>
 	<ui:composition>
-		<h:form>
-			<p:breadCrumb>
-				<p:menuitem value="accueil" url="accueil.xhtml" />
-				<p:menuitem value="Ajouter" url="ajouter.xhtml" />
-				<p:menuitem value="Modifier" url="modif.xhtml" />
-				<p:menuitem value="Supprimer" url="suppression.xhtml" />
-				<p:menuitem value="Recherche" url="recherche.xhtml" />
-				<p:menuitem value="se deconnecter" action="#{gMB.seDeconnecter}" />
-			</p:breadCrumb>
-		</h:form>
+
 		<h:form>
 			<p:menubar>
 				<p:submenu label="Accueil" icon="ui-icon-home">
@@ -33,20 +24,13 @@
 
 				<p:submenu label="Parcourir les catégories"
 					icon="ui-icon-circle-zoomout">
-					<p:submenu label="Alimentaire">
-						<p:menuitem value="Produits Frais"
-							action="#{proMB.listeprodsmeth(1)}" />
-						<p:menuitem value="Autre" url="#" />
-					</p:submenu>
-					<p:menuitem value="Animalerie" action="#{proMB.listeprodsmeth(2)}" />
-					<p:menuitem value="Autre" url="#" />
-					<p:separator />
-					<p:menuitem value="Voir toutes les catégories" url="#" />
+					<p:menuitem value="Voir toutes les catégories"
+						action="#{caMB.getAllCategorie}" />
 				</p:submenu>
 
 				<p:submenu label="Aide" icon="ui-icon-help">
 					<p:menuitem value="Modes de livraison" url="#" />
-					<p:menuitem value="Contact" url="#" />
+					<p:menuitem value="Contact" url="contactGerant.xhtml" />
 				</p:submenu>
 
 
@@ -64,28 +48,32 @@
 					<p:menuitem value="Mes avantages" url="#"
 						rendered="#{clMB.connecte}" />
 				</p:submenu>
-				
+
 				<p:submenu label="Espace gerant" icon="ui-icon-person">
-					<p:menuitem value="Se Connecter/S'inscrire" url="login.xhtml"
-						/>
+					<p:menuitem value="Se Connecter/S'inscrire" url="login.xhtml" />
 				</p:submenu>
-				
-				<p:menuitem value="Panier" url="#" icon="ui-icon-cart" />
+
+				<p:menuitem value="Panier" url="panier.xhtml" icon="ui-icon-cart" />
 
 				<f:facet name="options">
-					
+					<br />
 
-				<span class="ui-inputgroup-addon"><p:selectOneMenu
-						value="#{proMB.categorie.id}">
-						<f:selectItem itemLabel="Select une categorie" itemValue="" />
-						<f:selectItems value="#{sessionScope.listeCaSession}" var="ca"
-							itemLabel="#{ca.id} - #{ca.nom}" itemValue="#{ca.id}" />
 
-					</p:selectOneMenu></span><p:inputText placeholder="Nom du produit"
-					value="#{proMB.produit.designation}" />
-					<h:commandButton action="#{proMB.rechercherByDesignation}" value="Rechercher"/>
 				</f:facet>
 			</p:menubar>
+		</h:form>
+		<h:form>
+			<span class="ui-inputgroup-addon"><p:selectOneMenu
+					value="#{proMB.categorie.id}">
+					<f:selectItem itemLabel="Select une categorie" itemValue="" />
+					<f:selectItems value="#{sessionScope.listeCaSession}" var="ca"
+						itemLabel="#{ca.id} - #{ca.nom}" itemValue="#{ca.id}" />
+
+				</p:selectOneMenu></span>
+			<p:inputText placeholder="Nom du produit"
+				value="#{proMB.produit.designation}" />
+			<h:commandButton action="#{proMB.rechercherByDesignation}"
+				value="Rechercher" />
 		</h:form>
 
 	</ui:composition>
