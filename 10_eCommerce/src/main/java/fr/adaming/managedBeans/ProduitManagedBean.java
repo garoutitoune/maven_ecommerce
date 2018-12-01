@@ -22,7 +22,7 @@ import fr.adaming.model.Produit;
 import fr.adaming.service.IProduitService;
 
 @ManagedBean(name = "proMB")
-@SessionScoped
+@RequestScoped
 public class ProduitManagedBean implements Serializable {
 
 	// transformation de l'association uml en JAVA
@@ -128,7 +128,7 @@ public class ProduitManagedBean implements Serializable {
 		indice = true;
 
 		maSession.setAttribute("listeProCatSession", listePro);
-		return "accueil";
+		return "listeProCat";
 	}
 
 	public String getProduitByCat() {
@@ -136,7 +136,7 @@ public class ProduitManagedBean implements Serializable {
 		List<Produit> listePro = produitService.getAllProduitByCat(produit, categorie);
 		
 		maSession.setAttribute("listeProCatSession", listePro);
-		return "accueilSite";
+		return "listeProCat";
 		
 	}
 

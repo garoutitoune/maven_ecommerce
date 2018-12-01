@@ -30,10 +30,12 @@ public class ProduitDaoImpl implements IProduitDao {
 	@Override
 	public List<Produit> getAllProduit() {
 		Session s = sf.getCurrentSession();
-
-		Criteria cr = s.createCriteria(Produit.class);
 		
-		List<Produit> liste = cr.list();
+		String req="FROM Produit pr";
+
+		Query query=s.createQuery(req);
+		
+		List<Produit> liste = query.list();
 
 		for (Produit pr : liste) {
 			System.out.println("je suis dans le recuperateur d'image");
@@ -88,11 +90,13 @@ public class ProduitDaoImpl implements IProduitDao {
 	public List<Produit> getAllProduitCat(Produit pro) {
 		Session s = sf.getCurrentSession();
 
-		Criteria cr = s.createCriteria(Produit.class);
+		String req="FROM Produit pr WHERE pr.categorie.id=:pIdCa";
 
-		cr.add(Restrictions.eq("categorie.id", pro.getCategorie().getId()));
+		Query query=s.createQuery(req);
+		
+		query.setParameter("pIdCa", pro.getCategorie().getId());
 
-		List<Produit> liste = cr.list();
+		List<Produit> liste = query.list();
 
 		for (Produit pr : liste) {
 			pr.setImage("data:image/png);base64," + Base64.encodeBase64String(pr.getPhoto()));
@@ -104,11 +108,13 @@ public class ProduitDaoImpl implements IProduitDao {
 	public Produit getProduitById(Produit pro) {
 		Session s = sf.getCurrentSession();
 
-		Criteria cr = s.createCriteria(Produit.class);
+		String req="FROM Produit pr WHERE pr.categorie.id=:pIdPr";
 
-		cr.add(Restrictions.eq("id", pro.getId()));
+		Query query=s.createQuery(req);
+		
+		query.setParameter("pIdPr", pro.getId());
 
-		Produit proOut = (Produit) cr.uniqueResult();
+		Produit proOut = (Produit) query.uniqueResult();
 		proOut.setImage("data:image/png);base64," + Base64.encodeBase64String(proOut.getPhoto()));
 
 		return proOut;
