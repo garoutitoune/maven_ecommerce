@@ -98,28 +98,8 @@ public class ClientManagedBean implements Serializable{
 			//recup le client de la session
 			List<Commande> liste =coService.searchCommandeByClId(this.cl);
 //			maSession.setAttribute("listeCommandes", liste);
-			
 			//creer le treenode correspondant
-			TreeNode root = new DefaultTreeNode("on s'en fout", null);
-			
-			for (Commande commande : liste) {
-				String s1="Commande N."+commande.getId()+"/ Prix: "+coService.prixCommande(commande);
-				Object s2= commande.getDate();
-				TreeNode co=new DefaultTreeNode(new CommandeTreenode(s1,s2) ,root);
-				
-				for (LigneCommande li: commande.getListeLignes()) {
-					Produit p=li.getProduit();
-					s1="Produit: "+p.getId();
-					s2="Désignation: "+p.getDesignation()//+" Description: "+p.getDescription()
-					+"/ Quantité: "+li.getQt()+"/ Prix: "+li.getProduit().getPrix();
-					TreeNode pr=new DefaultTreeNode(new CommandeTreenode(s1, s2),co);
-				}
-			}
-			
-			maSession.setAttribute("listeCommandesTree", root);
-			
-			
-			
+			maSession.setAttribute("listeCommandesTree", coService.liste2treenode(liste));
 			
 			return "accueilSite.xhtml";
 		}else {

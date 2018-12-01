@@ -110,11 +110,15 @@ public class PanierManagedBean implements Serializable{
 	
 	//methodes
 	public void addProd() throws IOException {
-		this.panier=paservice.addProd(this.panier ,this.produit);
-		//actualiser le panier de la session
-		maSession.setAttribute("paSession", this.panier);
-//		FacesContext.getCurrentInstance().getExternalContext().redirect("voirProds1Categ.xhtml");
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Le produit a été ajouté au panier."));
+		int verif=paservice.addProd(this.panier ,this.produit);
+		//verifier que le panier a été modifié
+		if(verif==0) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Echec","Stocks insuffisants"));
+		}else {
+			//actualiser le panier de la session
+			maSession.setAttribute("paSession", this.panier);
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Le produit a été ajouté au panier."));
+		}
 	}
 	
 	public void delProd() throws IOException {
@@ -129,45 +133,24 @@ public class PanierManagedBean implements Serializable{
 		this.panier=paservice.delProd2(this.panier ,this.produit);
 		//actualiser le panier de la session
 		maSession.setAttribute("paSession", this.panier);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Le produit a été supprimé du panier."));
 	}
 	public void savePanier()
 	{
 		try {
-			//ajouter la nouvelle commande avec le client de la session
-			Commande commande=new Commande(new Date());
-			coservice.addCommande(commande, (Client) maSession.getAttribute("clSession"));
-			//ajouter les lignes de commande correspondant à cette commande
-			for (LigneCommande li : this.panier.getListeLignes()) {
-				liservice.addLigne(li, commande, li.getProduit());
-			}
+		
+			paservice.savePanier(panier, (Client) maSession.getAttribute("clSession"));
 			//vider le panier
 			maSession.setAttribute("paSession", new Panier());
 			this.panier=new Panier();
 			
-			
 			//actualiser la liste de commandes
 			List<Commande> liste =coservice.searchCommandeByClId((Client)maSession.getAttribute("clSession"));
-			//creer le treenode correspondant
-			TreeNode root = new DefaultTreeNode("on s'en fout", null);
-			
-			for (Commande commandetree : liste) {
-				String s1="Commande N."+commande.getId()+"/ Prix: "+coservice.prixCommande(commande);
-				Object s2= commandetree.getDate();
-				TreeNode co=new DefaultTreeNode(new CommandeTreenode(s1,s2) ,root);
-				
-				for (LigneCommande li: commandetree.getListeLignes()) {
-					Produit p=li.getProduit();
-					s1="Produit: "+p.getId();
-					s2="Désignation: "+p.getDesignation()//+" Description: "+p.getDescription()
-					+"/ Quantité: "+li.getQt()+"/ Prix: "+li.getProduit().getPrix();
-					TreeNode pr=new DefaultTreeNode(new CommandeTreenode(s1, s2),co);
-				}
-			}
-			maSession.setAttribute("listeCommandesTree", root);
+			//creer le treenode correspondant et l'enregistrer
+			maSession.setAttribute("listeCommandesTree", coservice.liste2treenode(liste));
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","La commande a été enregistrée."));
 		} catch (Exception e) {
-			System.out.println("error message:"+e.getMessage());
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'enregistrement a échoué"));
 		}
 		

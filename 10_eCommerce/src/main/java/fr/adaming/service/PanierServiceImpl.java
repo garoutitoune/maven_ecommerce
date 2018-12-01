@@ -26,7 +26,7 @@ public class PanierServiceImpl implements IPanierService{
 	}
 	
 	@Override
-	public Panier addProd(Panier panier, Produit produit) {
+	public int addProd(Panier panier, Produit produit) {
 		return padao.addProd(panier, produit);
 	}
 
@@ -43,9 +43,7 @@ public class PanierServiceImpl implements IPanierService{
 
 	@Override
 	public void savePanier(Panier panier, Client client) {
-		Commande commande=new Commande(new Date());
-		commande.setClient(client);
-		padao.savePanier(panier, commande);
+		padao.savePanier(panier, client);
 		
 	}
 	
