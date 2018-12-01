@@ -128,6 +128,7 @@ public class CategorieManagedBean implements Serializable {
 	}
 
 	public String supprimerCategorie() {
+		try {
 		int verif = categorieService.supprimerCategorie(categorie);
 		if (verif != 0) {
 			// si tout c'est bien passé recupère la liste et je l'injecte
@@ -147,6 +148,11 @@ public class CategorieManagedBean implements Serializable {
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la suppression a échoué"));
 
+			return "accueil";
+		}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Veuillez d'abord supprimer les produits"));
+			
 			return "accueil";
 		}
 

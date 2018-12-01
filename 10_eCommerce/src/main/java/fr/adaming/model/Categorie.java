@@ -34,7 +34,7 @@ public class Categorie {
 	private String image;
 	
 	//transformation de l'association
-	@OneToMany(mappedBy="categorie", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="categorie", cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
 	private List<Produit> produit;
 	
 	

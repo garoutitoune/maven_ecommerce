@@ -160,6 +160,7 @@ public class ProduitManagedBean implements Serializable {
 	}
 
 	public String supprimerProduit() {
+		try {
 		int verif = produitService.deleteProduit(produit);
 
 		if (verif != 0) {
@@ -172,6 +173,12 @@ public class ProduitManagedBean implements Serializable {
 
 		} else {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("l'ajout a échoué"));
+
+			return "supprimerPro";
+		}
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Le produit est enregistré dans une commande!"));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Veuillez d'abord supprimer la commande"));
 
 			return "supprimerPro";
 		}
