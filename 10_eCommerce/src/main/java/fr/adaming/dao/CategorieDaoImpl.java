@@ -42,6 +42,7 @@ public class CategorieDaoImpl implements ICategorieDao {
 
 	@Override
 	public Categorie addCategorie(Categorie ca) {
+		System.out.println("je suis dans catDao ajout");
 		Session s = sf.getCurrentSession();
 
 		s.save(ca);

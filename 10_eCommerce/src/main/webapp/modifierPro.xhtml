@@ -4,7 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	 xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>modif produit</title>
@@ -12,31 +12,34 @@
 </h:head>
 <h:body>
 
-	<ui:composition template="/templates/layout2.xhtml">
+	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
-			
-			
-			<h1>formulaire de modif </h1>
-<h:form enctype="multipart/form-data">
 
-<h:panelGrid columns="2">
+
+			<h1>formulaire de modif</h1>
+			<h:form enctype="multipart/form-data" id="proModif">
+				<p:growl showDetail="true" />
+
+				<h:panelGrid columns="2">
 Id: <h:inputText value="#{proMB.produit.id}" />
 description: <h:inputText value="#{proMB.produit.description}" />
-designiation: <h:inputText value="#{proMB.produit.designation}" />
+designation: <h:inputText value="#{proMB.produit.designation}" />
 prix: <h:inputText value="#{proMB.produit.prix}" />
 quantité: <h:inputText value="#{proMB.produit.quantite}" />
-photo: <p:fileUpload value="#{proMB.file}" mode="simple" skinSimple="true"/>
-Categorie ID : <h:outputText value="#{proMB.produit.categorie.id}"/>
-				<h:inputText value="#{proMB.categorie.id}"/>
+photo: <p:fileUpload value="#{proMB.file}" mode="simple"
+						skinSimple="true" />
+Categorie ID : <h:outputText value="#{proMB.produit.categorie.id}" />
+					<h:inputText value="#{proMB.categorie.id}" />
 
-						
 
-<h:commandButton value="Modifier" action="#{proMB.modifierProduit}"/> 
 
-</h:panelGrid>
-</h:form>
-<h1><h:messages style="color:red; text-align:center" /></h1>
-			
+					<p:commandButton value="Modifier" action="#{proMB.modifierProduit}"
+						update="proModif" />
+
+				</h:panelGrid>
+			</h:form>
+
+
 
 
 		</ui:define>

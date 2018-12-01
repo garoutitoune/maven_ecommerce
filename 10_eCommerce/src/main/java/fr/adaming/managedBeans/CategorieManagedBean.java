@@ -82,7 +82,8 @@ public class CategorieManagedBean implements Serializable {
 	}
 
 	public String ajouterCategorie() {
-
+		System.out.println("je suis dans la methode ajout caMB");
+		//injection de la photo
 		this.categorie.setPhoto(file.getContents());
 
 		// j'ajoute la categorie et le gerant avec
@@ -149,6 +150,24 @@ public class CategorieManagedBean implements Serializable {
 			return "accueil";
 		}
 
+	}
+	
+	
+	public String gestionProCat() {
+		// recuperer les categories
+		List<Categorie> listeCa = categorieService.getAllCategorie();
+
+		// recuperer les produits
+		List<Produit> listePro= produitService.getAllProduit();
+
+		// ajouter le formateur dans la session
+
+		maSession.setAttribute("listeCaSession",
+				listeCa);
+		maSession.setAttribute("listeProSession",
+				listePro);
+
+		return "accueil";
 	}
 	public String getAllCategorie() {
 		List<Categorie> listeCa=categorieService.getAllCategorie();

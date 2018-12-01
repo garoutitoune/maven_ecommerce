@@ -56,6 +56,8 @@
 						</p:commandButton>
 						<p:commandButton icon="ui-icon-trash" action="#{paMB.delProd2}"
 							update="idPanier">
+							<p:confirm header="Confirmation" message="es tu sûre ?"
+									icon="pi pi-exclamation-triangle" />
 							<f:setPropertyActionListener value="#{li.produit}"
 								target="#{paMB.produit}"></f:setPropertyActionListener>
 						</p:commandButton>
@@ -69,6 +71,15 @@
 				<p:commandLink value="Se Connecter/S'inscrire" action="logincl"
 					rendered="#{!sessionScope.connexion}">
 				</p:commandLink>
+			</h:form>
+			
+			<h:form>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Oui" type="button"
+						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+					<p:commandButton value="Non" type="button"
+						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+				</p:confirmDialog>
 			</h:form>
 		</ui:define>
 	</ui:composition>

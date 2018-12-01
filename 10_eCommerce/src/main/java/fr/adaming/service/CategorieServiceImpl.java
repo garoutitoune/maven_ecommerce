@@ -31,7 +31,7 @@ public class CategorieServiceImpl implements ICategorieService{
 
 	@Override
 	public Categorie addCategorie(Categorie ca) {
-		
+		System.out.println("je suis dans catService ajouter");
 		return categorieDao.addCategorie(ca);
 	}
 

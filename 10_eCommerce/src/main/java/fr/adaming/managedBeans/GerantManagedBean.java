@@ -121,25 +121,7 @@ public class GerantManagedBean implements Serializable {
 
 	}
 
-	public String gestionProCat() {
-		// recuperer les categories
-		this.listeCategorie = categorieService.getAllCategorie();
-
-		// recuperer les produits
-		this.listeProduit = produitService.getAllProduit();
-
-		// ajouter le formateur dans la session
-
-		
-		
-
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeCaSession",
-				this.listeCategorie);
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("listeProSession",
-				this.listeProduit);
-
-		return "accueil";
-	}
+	
 
 	public String seDeconnecter() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

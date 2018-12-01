@@ -32,7 +32,7 @@
 		<ui:define name="monCorp">
 			<h1>Formulaire d'ajout</h1>
 			<hr />
-			<h:form enctype="multipart/form-data" id="loginclform">
+			<h:form enctype="multipart/form-data" >
 
 				<h:panelGrid colomns="2" styleClass="centered-i"
 					columnClasses="form-left , form-right">
@@ -51,9 +51,9 @@
 			<h:inputText value="#{caMB.categorie.description}" required="true" />
 
 
-
+<h:commandButton value="Ajouter" action="#{caMB.ajouterCategorie}" />
 				</h:panelGrid>
-				<p:commandButton value="Ajouter" action="#{caMB.ajouterCategorie}" />
+				
 			</h:form>
 		</ui:define>
 	</ui:composition>

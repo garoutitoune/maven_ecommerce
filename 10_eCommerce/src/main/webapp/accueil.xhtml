@@ -57,7 +57,7 @@
 								ajax="false">
 								<h:graphicImage value="/resources/images/supprimer.png"
 									title="Supprimer" />
-								<p:confirm header="Confirmation" message="Are you sure?"
+								<p:confirm header="Confirmation" message="es tu sûre?"
 									icon="pi pi-exclamation-triangle" />
 								<f:setPropertyActionListener value="#{cat}"
 									target="#{caMB.categorie}" />
@@ -110,7 +110,7 @@
 						</p:column>
 
 						<p:column headerText="Photo">
-							<h:graphicImage value="#{pro.image}" />
+							<h:graphicImage value="#{pro.image}" style="width: 100px; height: 100px;"/>
 						</p:column>
 
 						<p:column headerText="Description" filterBy="#{pro.description}"
@@ -131,7 +131,7 @@
 							<p:commandLink action="#{proMB.supprimerProduit}" update="all"
 								ajax="false">
 								<h:graphicImage value="/resources/images/supprimer.png" />
-								<p:confirm header="Confirmation" message="Are you sure?"
+								<p:confirm header="Confirmation" message="es tu sûre ?"
 									icon="pi pi-exclamation-triangle" />
 								<f:setPropertyActionListener value="#{pro}"
 									target="#{proMB.produit}" />
@@ -163,9 +163,9 @@
 
 			<h:form>
 				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-					<p:commandButton value="Yes" type="button"
+					<p:commandButton value="Oui" type="button"
 						styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-					<p:commandButton value="No" type="button"
+					<p:commandButton value="Non" type="button"
 						styleClass="ui-confirmdialog-no" icon="pi pi-times" />
 				</p:confirmDialog>
 			</h:form>
