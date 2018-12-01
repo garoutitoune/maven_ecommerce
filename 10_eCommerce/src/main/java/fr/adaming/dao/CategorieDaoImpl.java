@@ -30,9 +30,13 @@ public class CategorieDaoImpl implements ICategorieDao {
 	public List<Categorie> getAllCategorie() {
 		Session s = sf.getCurrentSession();
 
-		Criteria cr = s.createCriteria(Categorie.class);
-
-		List<Categorie> liste=cr.list();
+//		Criteria cr = s.createCriteria(Categorie.class);
+//		List<Categorie> liste=cr.list();
+		
+		//req hql
+		String req="FROM Categorie";
+		Query q=s.createQuery(req);
+		List<Categorie> liste=q.list();
 		
 		for(Categorie ca:liste) {
 			ca.setImage("data:image/png);base64," + Base64.encodeBase64String(ca.getPhoto()));
