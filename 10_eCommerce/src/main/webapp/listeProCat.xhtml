@@ -13,13 +13,14 @@
 <h:body>
 	<ui:composition template="/templates/layout.xhtml">
 		<ui:define name="monCorp">
-			<p:growl id="message" showDetail="true" />
+			
 
 			<div>
 
 				
 				<h:form id="form">
-					<p:dataGrid var="pro" value="#{sessionScope.listeProCatSession}"
+				<p:growl id="message" showDetail="true" />
+									<p:dataGrid var="pro" value="#{sessionScope.listeProCatSession}"
 						columns="3" layout="grid" >
 
 						<f:facet name="header">
@@ -47,12 +48,12 @@
 								<h:outputText value="#{pro.quantite}" />
 								<hr />
 								<p:commandButton icon="ui-icon-circle-plus"
-									action="#{paMB.addProd}" >
+									action="#{paMB.addProd}" update="form" >
 									<f:setPropertyActionListener value="#{pro}"
 										target="#{paMB.produit}"></f:setPropertyActionListener>
 								</p:commandButton>
 								<p:commandButton icon="ui-icon-circle-minus"
-									action="#{paMB.delProd}" >
+									action="#{paMB.delProd}" update="form">
 									<f:setPropertyActionListener value="#{pro}"
 										target="#{paMB.produit}"></f:setPropertyActionListener>
 								</p:commandButton>

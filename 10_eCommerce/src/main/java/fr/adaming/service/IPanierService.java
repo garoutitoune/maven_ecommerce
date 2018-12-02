@@ -13,5 +13,5 @@ public interface IPanierService {
 	public int addProd(Panier panier,Produit produit); // opération +1 =>opération =x
 	public Panier delProd(Panier panier, Produit produit); //opération -1
 	public Panier delProd2(Panier panier, Produit produit); //supprimer une ligne de commande
-	public void savePanier(Panier panier, Client client);
+	public Commande savePanier(Panier panier, Client client);
 }

@@ -32,6 +32,8 @@ import fr.adaming.service.IPanierService;
 import fr.adaming.service.IProduitService;
 import fr.adaming.service.LigneServiceImpl;
 import fr.adaming.service.ProduitServiceImpl;
+import fr.adaming.util.Mail;
+import fr.adaming.util.Pdf;
 
 @ManagedBean(name="paMB")
 @RequestScoped
@@ -140,7 +142,9 @@ public class PanierManagedBean implements Serializable{
 	{
 		try {
 		
-			paservice.savePanier(panier, (Client) maSession.getAttribute("clSession"));
+			//enregistrer le panier dans la base de données et recup la commande
+			this.client=(Client) maSession.getAttribute("clSession");
+			Commande commande=paservice.savePanier(panier, client);
 			//vider le panier
 			maSession.setAttribute("paSession", new Panier());
 			this.panier=new Panier();
@@ -149,6 +153,18 @@ public class PanierManagedBean implements Serializable{
 			List<Commande> liste =coservice.searchCommandeByClId((Client)maSession.getAttribute("clSession"));
 			//creer le treenode correspondant et l'enregistrer
 			maSession.setAttribute("listeCommandesTree", coservice.liste2treenode(liste));
+			
+			//créer le pdf de récapitulatif de commande
+			//recup la liste des lignes de commandes de la commande
+			commande=coservice.searchCommandeById(commande);
+			Pdf.recapCommande(commande);
+			String text="Cher "+client.getNom()+",<br/>Nous vous remercions pour votre achat, veuillez trouver ci-joint le récapitulatif de votre commande!"
+					+ "<br/>A très bientôt,<br/>L'équipe Mistigris";
+//			String tomail=client.getEmail();
+//			String tomail="camille.jenny.le@gmail.com";
+			String tomail="proxibanque17@gmail.com";
+			Mail.sendRecapCommande(tomail, "Récapitulatif de commande", text);
+			
 			
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","La commande a été enregistrée."));
 		} catch (Exception e) {

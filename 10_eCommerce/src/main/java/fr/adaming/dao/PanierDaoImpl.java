@@ -123,7 +123,7 @@ public class PanierDaoImpl implements IPanierDao{
 	}
 
 	@Override
-	public void savePanier(Panier panier, Client client) {
+	public Commande savePanier(Panier panier, Client client) {
 		
 		
 		Commande commande=new Commande(new Date());
@@ -138,6 +138,7 @@ public class PanierDaoImpl implements IPanierDao{
 //			proservice.modifierProduit(prod, prod.getCategorie());
 		}
 		
+		return commande;
 		
 	}
 

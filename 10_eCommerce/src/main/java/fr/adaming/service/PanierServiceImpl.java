@@ -42,8 +42,8 @@ public class PanierServiceImpl implements IPanierService{
 	}
 
 	@Override
-	public void savePanier(Panier panier, Client client) {
-		padao.savePanier(panier, client);
+	public Commande savePanier(Panier panier, Client client) {
+		return padao.savePanier(panier, client);
 		
 	}
 	
