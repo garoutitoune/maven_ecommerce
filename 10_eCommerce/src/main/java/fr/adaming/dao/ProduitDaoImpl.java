@@ -108,7 +108,7 @@ public class ProduitDaoImpl implements IProduitDao {
 	public Produit getProduitById(Produit pro) {
 		Session s = sf.getCurrentSession();
 
-		String req="FROM Produit pr WHERE pr.categorie.id=:pIdPr";
+		String req="FROM Produit pr WHERE pr.id=:pIdPr";
 
 		Query query=s.createQuery(req);
 		

@@ -67,6 +67,7 @@
 
 .ui-panel-content.ui-widget-content{
 	background-color: #CEDED8 !important;
+	heigth: 500px;
 	
 }
 .ui-datagrid-header.ui-widget-header.ui-corner-top{

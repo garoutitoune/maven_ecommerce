@@ -48,11 +48,15 @@
 				</p:submenu>
 
 				<p:submenu label="Espace gerant" icon="ui-icon-person">
-					<p:menuitem value="Se Connecter/S'inscrire" url="login.xhtml" rendered="#{!sessionScope.gConnexion}"/>
+					<p:menuitem value="Se Connecter" url="login.xhtml" rendered="#{!sessionScope.gConnexion}"/>
 					<p:menuitem value="Déconnexion" rendered="#{sessionScope.gConnexion}"
 						action="#{gMB.seDeconnecter}" />
 						<p:menuitem value="Gestion pro/cat" rendered="#{sessionScope.gConnexion}"
 						action="#{caMB.gestionProCat}" />
+						<p:menuitem value="ajouter categorie" rendered="#{sessionScope.gConnexion}"
+						url="ajouter.xhtml" />
+						<p:menuitem value="ajouter produit" rendered="#{sessionScope.gConnexion}"
+						url="ajouterPro.xhtml" />
 				</p:submenu>
 
 				<p:menuitem value="Panier" url="panier.xhtml" icon="ui-icon-cart" />

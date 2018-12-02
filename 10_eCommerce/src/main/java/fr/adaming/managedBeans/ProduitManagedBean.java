@@ -128,7 +128,7 @@ public class ProduitManagedBean implements Serializable {
 		indice = true;
 
 		maSession.setAttribute("listeProCatSession", listePro);
-		return "listeProCat";
+		return "accueil";
 	}
 
 	public String getProduitByCat() {
