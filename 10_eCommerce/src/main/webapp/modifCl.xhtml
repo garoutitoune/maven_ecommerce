@@ -50,10 +50,26 @@ Téléphone: <h:inputText value="#{sessionScope.clSession.tel}" />
     	</h:panelGrid>
  <br/>
     <p:commandButton update="clMdpModif" value="Modifier mon mot de passe" action="#{clMB.modifMdp}"/> 
-		
-		
+		<h1><h:messages style="color:red; text-align:center" /></h1>
 	</h:form>
 <br/>
+
+	<h:form id="delClient">
+	<h1>Supprimer mon compte </h1>
+	<hr/>
+	<i>*Attention, toutes les informations vous concernant seront définitivement supprimées de la base de données.</i>
+	<br/>
+	<br/>
+	<p:commandButton value="Supprimer mon compte" action="#{clMB.delClient}" update="delClient">
+		<p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer votre compte?" icon="pi pi-exclamation-triangle" />
+	</p:commandButton>
+	<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+		<p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+		<p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+	</p:confirmDialog>
+	
+	<h1><h:messages style="color:red; text-align:center" /></h1>
+	</h:form>
 		</ui:define>
 	</ui:composition>
 

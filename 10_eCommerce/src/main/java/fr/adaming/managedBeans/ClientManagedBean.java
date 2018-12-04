@@ -125,10 +125,15 @@ public class ClientManagedBean implements Serializable{
 		
 		try {
 			clService.delClient(this.cl);
-			return "accueilSite.xhtml";
+			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("accueilSite.xhtml");
+			FacesContext.getCurrentInstance().getExternalContext().redirect( "logincl.xhtml");
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Confirmation","Votre compte a été éradiqué de la base de données."));
+			
+			return "logincl.xhtml";
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("la suppression a échoué"));
-			return "delCl.xhtml";
+			return "modifCl.xhtml";
 		}
 		
 	}

@@ -25,6 +25,18 @@
 
 					<f:facet name="header">
 						<h:outputText value="Panier" />
+						
+						<p:commandButton icon="ui-icon-trash" action="#{paMB.viderPanier}"
+							update="idPanier" >
+							<p:confirm header="Confirmation" message="Vider le panier ?"
+									icon="pi pi-exclamation-triangle" />
+						</p:commandButton>
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+							<p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+						</p:confirmDialog>
+						
+						
 					</f:facet>
 
 					<p:column headerText="Photo">

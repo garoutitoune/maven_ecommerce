@@ -173,4 +173,10 @@ public class PanierManagedBean implements Serializable{
 		
 	}
 	
+	public void viderPanier() {
+		//vider le panier
+		maSession.setAttribute("paSession", new Panier());
+		this.panier=new Panier();
+	}
+	
 }
